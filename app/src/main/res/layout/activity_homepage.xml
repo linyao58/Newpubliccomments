@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".Homepage">
+
+
+
+    <RelativeLayout
+        android:id="@+id/mainbody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_bar">
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="#F2F2F8">
+
+            <RelativeLayout
+                android:id="@+id/icon1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/icontext1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:text="首页"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/iconimage1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/home"
+                    android:layout_marginTop="3dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/icon2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/icontext2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="地图"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:id="@+id/iconimage2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/location"
+                    android:layout_marginTop="3dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/icon3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/icontext3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="发布"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:id="@+id/iconimage3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/newadd"
+                    android:layout_marginTop="3dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/icon4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/icontext4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="消息"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:id="@+id/iconimage4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/news"
+                    android:layout_marginTop="3dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/icon5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/icontext5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="我的"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:id="@+id/iconimage5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/account"
+                    android:layout_marginTop="3dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

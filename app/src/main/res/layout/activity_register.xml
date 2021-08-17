@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/register_fanhui"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/fanhui"/>
+
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logindazhong"
+            />
+
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="大众点评"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textColor="#272727"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发  现  生  活  品  质"
+        android:textSize="18dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:textColor="#272727"/>
+    
+    <EditText
+        android:id="@+id/R_pholo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:hint="请输入手机号"
+        android:drawableStart="@drawable/shouji"
+        android:backgroundTint="#272727"/>
+
+    <EditText
+        android:id="@+id/R_pass"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="请输入密码"
+        android:drawableStart="@drawable/password"
+        android:backgroundTint="#272727"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/userzuces"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="注册"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+
+        android:background="@drawable/button_item"/>
+
+</LinearLayout>

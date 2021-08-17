@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/backup"
+        android:icon="@drawable/back"
+        android:title="Backup"
+        app:showAsAction="always"
+
+        />
+
+    <item
+        android:id="@+id/sshoucang"
+        android:icon="@drawable/sc"
+        android:title="Shoucang"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/quanbu"
+        android:icon="@drawable/gengduo"
+        android:title="Quanbu"
+        app:showAsAction="always"/>
+
+</menu>

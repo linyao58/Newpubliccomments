@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SystemActivity">
+
+    <Button
+        android:id="@+id/chuangjian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建数据库"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/B_business"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入商家信息"/>
+
+    <EditText
+        android:id="@+id/B_prolife"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入商家简介"/>
+    <EditText
+        android:id="@+id/B_shen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="是否审核"/>
+    <EditText
+        android:id="@+id/C_commodity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商品信息"/>
+    <EditText
+        android:id="@+id/C_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商品简介"/>
+    <EditText
+        android:id="@+id/B_ids"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商家id"/>
+    <EditText
+        android:id="@+id/C_shen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="是否审核"/>
+
+    <Button
+        android:id="@+id/shangchuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传商家信息"/>
+    <Button
+        android:id="@+id/scshangping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传商品信息"/>
+
+</LinearLayout>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderMainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        >
+
+        <ImageView
+            android:id="@+id/Del_backshang"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center"
+            />
+
+
+        <ImageView
+            android:id="@+id/shangshoucang"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="325dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/sc"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/shangjiadianpu"
+            android:layout_marginLeft="24dp"/>
+
+        <TextView
+            android:id="@+id/xiangjiaxinxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textColor="#272727"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/shangpingxingxi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#272727"
+        android:paddingLeft="28dp"
+        android:textSize="20dp"/>
+
+    <ImageView
+        android:id="@+id/shangpingtubian"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:src="@drawable/naicha"
+        android:background="@drawable/accont_back"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="购买须知"
+            android:textSize="25dp"
+            android:textColor="#272727"
+            android:paddingLeft="24dp"
+            android:layout_marginTop="25dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="有效期："
+            android:textSize="18dp"
+            android:paddingLeft="24dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="购买后15天有效(周末、法定节假日通用)"
+            android:paddingLeft="35dp"
+            android:textSize="18dp"
+            android:textColor="#272727"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="使用时间："
+            android:textSize="18dp"
+            android:paddingLeft="24dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10:00-22:00，具体时间以门店营业情况为准"
+            android:paddingLeft="35dp"
+            android:textSize="18dp"
+            android:textColor="#272727"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="使用规则："
+            android:textSize="18dp"
+            android:paddingLeft="24dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="每人每天最多使用2张优惠劵"
+            android:paddingLeft="35dp"
+            android:textSize="18dp"
+            android:textColor="#272727"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/jinqian"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/jiage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35dp"
+
+            android:layout_gravity="center"
+            android:textColor="#FF5809"/>
+
+        <Button
+            android:id="@+id/xiadan"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_item"
+            android:layout_gravity="center"
+            android:text="立即抢购"
+            android:textSize="18dp"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="205dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
