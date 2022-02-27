@@ -2,7 +2,6 @@ package com.example.newpubliccomments
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -11,15 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.SaveListener
-import kotlinx.android.synthetic.main.activity_password.*
-import kotlinx.android.synthetic.main.activity_zhifu_main.*
+import com.example.newpubliccomments.message.ConversationListFragment
+import com.example.newpubliccomments.tool.StatusBar
+//import cn.bmob.v3.exception.BmobException
+//import cn.bmob.v3.listener.SaveListener
 
 class Fruits(val name:String, val imageId: Int, val aid: Int,val spholo: String)
 
@@ -159,8 +156,7 @@ class setting(intent: Intent) : Fragment() {
         var quxiao = view.findViewById(R.id.setting_quxiao) as TextView
         var edt_synopsis = view.findViewById(R.id.edt_synopsis) as EditText
         var Text_fabu = view.findViewById(R.id.Text_fabu) as TextView
-
-
+        var vedioPhoto = view.findViewById<LinearLayout>(R.id.vediophoto)
 
         quxiao.setOnClickListener {
             val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
@@ -186,7 +182,9 @@ class setting(intent: Intent) : Fragment() {
 
         }
 
-
+        vedioPhoto.setOnClickListener {
+            Toast.makeText(it.context, "123465432", Toast.LENGTH_SHORT).show()
+        }
 
         return view
     }
@@ -201,9 +199,10 @@ class news : Fragment(){
     ): View? {
         val view = inflater.inflate(R.layout.activity_news,container,false)
 
+
+
         return view
     }
-
 
 }
 
@@ -262,20 +261,16 @@ class accont(intent: Intent) : Fragment(){
     }
 }
 
-class Homepage : AppCompatActivity() {
-
-
+class Homepage : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
 
-
-
-
-
-
-
+//        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+//        设置状态栏图标颜色
+        StatusBar().statusBarTextColor(this, true)
 
         var gopholo = intent.getStringExtra("gopholo").toString()
         Log.e("xianshi",gopholo)
@@ -405,7 +400,10 @@ class Homepage : AppCompatActivity() {
             text5.setTextColor(Color.parseColor("#8E8E8E"))
 
             if (gopholo != ""){
-                fragnews(news())
+//                fragnews(news())
+//              进入消息页面
+                fragnews(ConversationListFragment.newInstance())
+                
             }else{
                 val intent = Intent(this,LoginActivity::class.java)
                 startActivity(intent)

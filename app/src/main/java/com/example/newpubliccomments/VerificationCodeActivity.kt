@@ -7,12 +7,12 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-import cn.bmob.v3.Bmob
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobSMS
-import cn.bmob.v3.BmobUser
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.*
+//import cn.bmob.v3.Bmob
+//import cn.bmob.v3.BmobQuery
+//import cn.bmob.v3.BmobSMS
+//import cn.bmob.v3.BmobUser
+//import cn.bmob.v3.exception.BmobException
+//import cn.bmob.v3.listener.*
 import kotlinx.android.synthetic.main.activity_verification_code.*
 
 class VerificationCodeActivity : BaseActivity() {
@@ -69,20 +69,20 @@ class VerificationCodeActivity : BaseActivity() {
     private fun signUp() {
         var pholo = getpholos
         var code = edtyan.text.toString()
-        BmobSMS.verifySmsCode(pholo,code,object : UpdateListener(){
-            override fun done(ex: BmobException?) {
-                if (ex == null) {
-                    Toast.makeText(mContext, "验证成功", Toast.LENGTH_LONG).show()
-                    var intent = Intent(this@VerificationCodeActivity,Homepage::class.java)
-                    intent.putExtra("gopholo",pholo)
-                    startActivity(intent)
-
-
-                } else {
-                    Toast.makeText(mContext, "验证失败：$ex.message", Toast.LENGTH_LONG).show()
-                }
-            }
-        })
+//        BmobSMS.verifySmsCode(pholo,code,object : UpdateListener(){
+//            override fun done(ex: BmobException?) {
+//                if (ex == null) {
+//                    Toast.makeText(mContext, "验证成功", Toast.LENGTH_LONG).show()
+//                    var intent = Intent(this@VerificationCodeActivity,Homepage::class.java)
+//                    intent.putExtra("gopholo",pholo)
+//                    startActivity(intent)
+//
+//
+//                } else {
+//                    Toast.makeText(mContext, "验证失败：$ex.message", Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        })
     }
 
     private fun sendCode() {
@@ -90,21 +90,21 @@ class VerificationCodeActivity : BaseActivity() {
         /**
          * bmob发送验证码
          */
-        BmobSMS.requestSMSCode(getpholos, "", object : QueryListener<Int>() {
-            override fun done(smsId: Int?, ex: BmobException?) {
-                if (ex == null) {
-                    Toast.makeText(mContext, "发送成功：$smsId", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(mContext, "发送成失败：$ex.message", Toast.LENGTH_LONG).show()
-                }
-            }
-        })
+//        BmobSMS.requestSMSCode(getpholos, "", object : QueryListener<Int>() {
+//            override fun done(smsId: Int?, ex: BmobException?) {
+//                if (ex == null) {
+//                    Toast.makeText(mContext, "发送成功：$smsId", Toast.LENGTH_LONG).show()
+//                } else {
+//                    Toast.makeText(mContext, "发送成失败：$ex.message", Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verification_code)
-        Bmob.initialize(this,Constant.BMOB_APP_ID)
+//        Bmob.initialize(this,Constant.BMOB_APP_ID)
 
         getpholos = intent.getStringExtra("pholos").toString()
         val xianshipholos : TextView = findViewById(R.id.textpholoss)

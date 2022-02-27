@@ -7,10 +7,10 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import cn.bmob.v3.Bmob
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
+//import cn.bmob.v3.Bmob
+//import cn.bmob.v3.BmobQuery
+//import cn.bmob.v3.exception.BmobException
+//import cn.bmob.v3.listener.FindListener
 import kotlinx.android.synthetic.main.activity_password.*
 import kotlinx.android.synthetic.main.activity_pholo.*
 
@@ -50,7 +50,7 @@ class PholoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pholo)
-        Bmob.initialize(this,Constant.BMOB_APP_ID)
+//        Bmob.initialize(this,Constant.BMOB_APP_ID)
 
 
 

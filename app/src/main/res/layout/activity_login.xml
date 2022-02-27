@@ -1,93 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".LoginActivity"
     android:background="#272727">
 
+<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        xmlns:tools="http://schemas.android.com/tools"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        tools:context=".LoginActivity"-->
+<!--        android:background="#272727">-->
 
-    <ImageView
-        android:id="@+id/login_fanhui"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/fanhui"/>
-
-
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="120dp">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/logindazhong"
-            />
+            android:id="@+id/login_fanhui"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/fanhui"/>
 
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="120dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logindazhong"
+                />
+
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="大众点评"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@id/layout"
+            app:layout_constraintEnd_toEndOf="@id/layout"
+            app:layout_constraintTop_toBottomOf="@id/layout"/>
 
         <TextView
-            android:layout_width="150dp"
+            android:id="@+id/one_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="大众点评"
-            android:textSize="30dp"
+            android:text="发  现  生  活  品  质"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:textColor="#BEBEBE"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout"/>
+
+
+        <Button
+            android:id="@+id/denglu"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="300dp"
+            android:paddingLeft="127dp"
+            android:drawableStart="@drawable/shouji"
+            android:text="手机号登录"
+            android:textSize="20dp"
+            android:background="@drawable/button_newitem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/one_text"/>
+
+        <Button
+            android:id="@+id/userzuce"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:textColor="#FFFFFF"/>
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:text="注册"
+            android:textSize="20dp"
+            android:background="@drawable/button_newitem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/denglu"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发  现  生  活  品  质"
-        android:textSize="18dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:textColor="#BEBEBE"/>
+        <CheckBox
+            android:id="@+id/remember1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已阅读并同意《软件许可及服务协议》、《隐私政策》等，接受免除或者限制责任、诉讼管辖约定等粗体标示条款。"
+            android:textColor="#BEBEBE"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
+<!--    </LinearLayout>-->
 
-    <Button
-        android:id="@+id/denglu"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="200dp"
-        android:paddingLeft="127dp"
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        android:drawableStart="@drawable/shouji"
-        android:text="手机号登录"
-        android:textSize="20dp"
-
-
-        android:background="@drawable/button_newitem"/>
-
-    <Button
-        android:id="@+id/userzuce"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="注册"
-        android:textSize="20dp"
-
-
-        android:background="@drawable/button_newitem"/>
-
-    <CheckBox
-        android:id="@+id/remember1"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-
-        android:text="已阅读并同意《软件许可及服务协议》、《隐私政策》等，接受免除或者限制责任、诉讼管辖约定等粗体标示条款。"
-        android:textColor="#BEBEBE"/>
-
-
-
-</LinearLayout>

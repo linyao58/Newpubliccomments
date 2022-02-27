@@ -1,15 +1,19 @@
 package com.example.newpubliccomments
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import cn.bmob.v3.Bmob
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
+import com.example.newpubliccomments.tool.StatusBar
+//import cn.bmob.v3.Bmob
+//import cn.bmob.v3.BmobQuery
+//import cn.bmob.v3.exception.BmobException
+//import cn.bmob.v3.listener.FindListener
 import java.util.*
 
 class MainActivity : BaseActivity() {
@@ -18,7 +22,13 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Bmob.initialize(this,Constant.BMOB_APP_ID)
+
+//      使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+
+        StatusBar().statusBarTextColor(this, true)
+
+//        Bmob.initialize(this,Constant.BMOB_APP_ID)
 
         //queryObjects()
 
@@ -44,7 +54,7 @@ class MainActivity : BaseActivity() {
         }
         //该页面延迟5秒
         var timerTask = MyTimerTask()
-        timer.schedule(timerTask,5000)
+        timer.schedule(timerTask,3000)
     }
 
     /**
