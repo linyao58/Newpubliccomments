@@ -1,20 +1,29 @@
 package com.example.newpubliccomments
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newpubliccomments.message.ConversationListFragment
+import com.example.newpubliccomments.tool.GlideEngine
 import com.example.newpubliccomments.tool.StatusBar
+import com.huantansheng.easyphotos.EasyPhotos
+import com.huantansheng.easyphotos.callback.SelectCallback
+import com.huantansheng.easyphotos.models.album.entity.Photo
+
 //import cn.bmob.v3.exception.BmobException
 //import cn.bmob.v3.listener.SaveListener
 
@@ -183,7 +192,26 @@ class setting(intent: Intent) : Fragment() {
         }
 
         vedioPhoto.setOnClickListener {
-            Toast.makeText(it.context, "123465432", Toast.LENGTH_SHORT).show()
+
+            EasyPhotos.createAlbum(this, true, true, GlideEngine.getInstance())
+                .setFileProviderAuthority("com.example.newpubliccomments.fileprovider")
+                .setCount(9)
+                .setVideo(true)
+                .setOriginalMenu(true, true, null)
+                .start( object : SelectCallback(){
+                    override fun onResult(
+                        photos: java.util.ArrayList<Photo>?,
+                        isOriginal: Boolean
+                    ) {
+                        Log.e("TAG", "onResult: ${photos?.size}")
+                    }
+
+                    override fun onCancel() {
+                        Toast.makeText(it.context, "Cancel", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+
         }
 
         return view
@@ -263,9 +291,24 @@ class accont(intent: Intent) : Fragment(){
 
 class Homepage : BaseActivity() {
 
+    //读写权限
+    val PERMISSIONS_STORAGE = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+
+    //请求状态码
+    val REQUEST_PERMISSION_CODE = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
+            }
+        }
 
 //        使状态栏变透明，使布局变成侵入式布局
         StatusBar().statusBarColor(this)
@@ -473,6 +516,22 @@ class Homepage : BaseActivity() {
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.frag,fragment)
         transaction.commit()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            for (i in 0 until permissions.size) {
+                Log.i(
+                    "MainActivity",
+                    "申请的权限为：" + permissions[i] + ",申请结果：" + grantResults[i]
+                )
+            }
+        }
     }
 
 }
