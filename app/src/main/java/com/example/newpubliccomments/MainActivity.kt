@@ -54,7 +54,7 @@ class MainActivity : BaseActivity() {
         }
         //该页面延迟5秒
         var timerTask = MyTimerTask()
-        timer.schedule(timerTask,3000)
+        timer.schedule(timerTask,2000)
     }
 
     /**

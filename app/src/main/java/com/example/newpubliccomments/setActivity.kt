@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_set.*
 
 class setActivity : AppCompatActivity() {
@@ -12,6 +13,9 @@ class setActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set)
 
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+        StatusBar().statusBarTextColor(this, true)
 
         var set_pholo = intent.getStringExtra("setpholo").toString()
         set_back.setOnClickListener {

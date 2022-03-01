@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import com.example.newpubliccomments.tool.StatusBar
 //import cn.bmob.v3.Bmob
 //import cn.bmob.v3.BmobQuery
 //import cn.bmob.v3.BmobSMS
@@ -105,6 +106,10 @@ class VerificationCodeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verification_code)
 //        Bmob.initialize(this,Constant.BMOB_APP_ID)
+
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+        StatusBar().statusBarTextColor(this, true)
 
         getpholos = intent.getStringExtra("pholos").toString()
         val xianshipholos : TextView = findViewById(R.id.textpholoss)

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_password.*
 
 class PasswordActivity : AppCompatActivity() {
@@ -69,6 +70,10 @@ class PasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password)
         //Bmob.initialize(this,Constant.BMOB_APP_ID)
+
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+        StatusBar().statusBarTextColor(this, true)
 
         var getpholos = intent.getStringExtra("pholos").toString()
 

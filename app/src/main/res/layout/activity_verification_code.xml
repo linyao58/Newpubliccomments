@@ -55,7 +55,7 @@
         android:orientation="horizontal">
     <EditText
         android:id="@+id/edtyan"
-        android:layout_width="325dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
 
         android:hint="请输入验证码"
@@ -91,7 +91,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="225dp"
+            android:layout_marginLeft="180dp"
             android:text="登录遇到问题"
             android:textSize="15dp"
             android:textColor="#7D7DFF"/>

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.example.newpubliccomments.tool.StatusBar
 //import cn.bmob.v3.Bmob
 //import cn.bmob.v3.BmobQuery
 //import cn.bmob.v3.exception.BmobException
@@ -52,7 +53,9 @@ class PholoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pholo)
 //        Bmob.initialize(this,Constant.BMOB_APP_ID)
 
-
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+        StatusBar().statusBarTextColor(this, true)
 
         remember1.isChecked = false
         but_next.isEnabled = false

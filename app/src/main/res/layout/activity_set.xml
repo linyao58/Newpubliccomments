@@ -15,16 +15,17 @@
 
         <ImageView
             android:id="@+id/set_back"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:src="@drawable/back"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:text="设置"
-            android:textSize="25dp"
+            android:textSize="22dp"
             android:textColor="#272727"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="130dp"
             android:paddingTop="13dp"
             />
     </LinearLayout>
@@ -40,7 +41,7 @@
             android:layout_height="50dp"
             android:background="#ffffff"
             android:text="个人资料"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
 
@@ -50,7 +51,7 @@
             android:layout_marginTop="1dp"
             android:background="#ffffff"
             android:text="账号与安全"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
 
@@ -60,7 +61,7 @@
             android:layout_marginTop="20dp"
             android:background="#ffffff"
             android:text="消息与推送通知"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
         <TextView
@@ -69,7 +70,7 @@
             android:layout_marginTop="1dp"
             android:background="#ffffff"
             android:text="隐私"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
         <TextView
@@ -78,7 +79,7 @@
             android:layout_marginTop="1dp"
             android:background="#ffffff"
             android:text="通用"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
 
@@ -88,7 +89,7 @@
             android:layout_marginTop="20dp"
             android:background="#ffffff"
             android:text="清除缓存"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
 
@@ -98,7 +99,7 @@
             android:layout_marginTop="1dp"
             android:background="#ffffff"
             android:text="诊断网络"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
 
@@ -108,7 +109,7 @@
             android:layout_marginTop="20dp"
             android:background="#ffffff"
             android:text="关于我们"
-            android:textSize="23dp"
+            android:textSize="17dp"
             android:padding="12dp"
             android:textColor="#272727"/>
 
@@ -120,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="退出登录"
-        android:textSize="23dp"
+        android:textSize="20dp"
         android:background="#ffffff"/>
 
 

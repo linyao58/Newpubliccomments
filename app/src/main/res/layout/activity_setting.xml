@@ -12,35 +12,34 @@
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal">
+        >
 
         <TextView
             android:id="@+id/setting_quxiao"
             android:layout_width="80dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
             android:text="取消"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
             android:textColor="#272727"/>
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="70dp"
             android:text="发笔记"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
             android:textColor="#272727"/>
 
         <TextView
             android:id="@+id/Text_fabu"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="50dp"
             android:layout_gravity="center"
             android:text="发布"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:gravity="center"
             android:textColor="#ffffff"
             android:background="@drawable/button_item"
@@ -50,8 +49,8 @@
 
     <LinearLayout
         android:id="@+id/vediophoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:orientation="vertical"
@@ -68,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="上传视频/图片"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textColor="#272727"
             android:gravity="center"/>
     </LinearLayout>
@@ -76,8 +75,8 @@
     <EditText
         android:id="@+id/edt_synopsis"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:hint="听说，写笔记更容易被推上首页哦~"
         android:maxLines="10"
         android:textColor="#272727"

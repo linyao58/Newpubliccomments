@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newpubliccomments.databinding.FragmentHomeBinding
 import com.example.newpubliccomments.message.ConversationListFragment
 import com.example.newpubliccomments.tool.GlideEngine
 import com.example.newpubliccomments.tool.StatusBar
@@ -81,6 +82,9 @@ class FruitAdapters(val fruitList : List<Fruits>) :
 
 
 class home(intent: Intent) : Fragment(){
+
+    private var binding: FragmentHomeBinding? = null
+
     var gopholo = intent.getStringExtra("gopholo").toString()
 
     private val fruitLists = ArrayList<Fruits>()
@@ -90,28 +94,28 @@ class home(intent: Intent) : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_home,container,false)
+        binding = FragmentHomeBinding.inflate(inflater,container,false)
 
-        var recyclerViews = view.findViewById(R.id.recyclerView) as androidx.recyclerview.widget.RecyclerView
+        var recyclerViews = binding?.recyclerView
 
         initFruits()
 
         val layoutManager = GridLayoutManager(context,2)
         //线性布局
-        recyclerViews.layoutManager = layoutManager
+        recyclerViews?.layoutManager = layoutManager
         //完成适配器配置
         val adapter = FruitAdapters(fruitLists)
-        recyclerViews.adapter = adapter
+        recyclerViews?.adapter = adapter
 
 
-        var meishi = view.findViewById(R.id.Line_meishi) as LinearLayout
-        meishi.setOnClickListener {
+        var meishi = binding?.LineMeishi
+        meishi?.setOnClickListener {
             val intent = Intent("com.example.newpubliccomment_Delicious.ACTION_START")
             intent.putExtra("delpholo",gopholo)
             startActivity(intent)
         }
 
-        return view
+        return binding!!.root
     }
 
 

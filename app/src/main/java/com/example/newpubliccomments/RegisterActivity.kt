@@ -6,12 +6,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+        StatusBar().statusBarTextColor(this, true)
 
         register_fanhui.setOnClickListener {
             val intent = Intent(this,LoginActivity::class.java)
@@ -28,10 +33,10 @@ class RegisterActivity : AppCompatActivity() {
                 put("userpholo",r_pholo)
                 put("userpassword",r_pass)
             }
-            if(r_pholo.length == 11){
+            if(r_pholo.length == 11 && r_pass.length >= 6){
                 db.insert("User",null,values1)
                 AlertDialog.Builder(this).apply {
-                    setTitle("This is Dialog")
+                    setTitle("注册")
                     setMessage("注册成功，是否跳转到登录？")
                     setCancelable(false)
                     setPositiveButton("确定") { dialog, which ->
