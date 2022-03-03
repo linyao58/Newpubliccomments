@@ -3,6 +3,7 @@ package com.example.newpubliccomments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -110,9 +111,12 @@ class home(intent: Intent) : Fragment(){
 
         var meishi = binding?.LineMeishi
         meishi?.setOnClickListener {
-            val intent = Intent("com.example.newpubliccomment_Delicious.ACTION_START")
-            intent.putExtra("delpholo",gopholo)
-            startActivity(intent)
+//            val intent = Intent("com.example.newpubliccomment_Delicious.ACTION_START")
+//            intent.putExtra("delpholo",gopholo)
+//            startActivity(intent)
+
+            DeliciousfoodActivity().start(it.context, gopholo)
+
         }
 
         return binding!!.root
@@ -258,9 +262,9 @@ class accont(intent: Intent) : Fragment(){
         }
 
         dingdanshu.setOnClickListener {
-            val intent = Intent("com.example.newpublicXianshiOrder.ACTION_START")
-            intent.putExtra("setpholo",gopholo)
-            startActivity(intent)
+
+            XianshiOrderMainActivity().start(it.context, gopholo)
+
         }
 
         if (gopholo == ""){
@@ -484,8 +488,47 @@ class Homepage : BaseActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        var action = intent.getBooleanExtra("Action", false)
+        if (action){
 
+            val image1: ImageView =findViewById(R.id.iconimage1)
+            val image2: ImageView =findViewById(R.id.iconimage2)
+            val image3: ImageView =findViewById(R.id.iconimage3)
+            val image4: ImageView =findViewById(R.id.iconimage4)
+            val image5: ImageView =findViewById(R.id.iconimage5)
+            val text1: TextView =findViewById(R.id.icontext1)
+            val text2: TextView =findViewById(R.id.icontext2)
+            val text3: TextView =findViewById(R.id.icontext3)
+            val text4: TextView =findViewById(R.id.icontext4)
+            val text5: TextView =findViewById(R.id.icontext5)
+
+            image1.setImageResource(R.drawable.home)
+            image2.setImageResource(R.drawable.location)
+            image3.setImageResource(R.drawable.newadd)
+            image4.setImageResource(R.drawable.news)
+            image5.setImageResource(R.drawable.account)
+
+            image1.setColorFilter(Color.parseColor("#8E8E8E"))
+            image2.setColorFilter(Color.parseColor("#d81e06"))
+            image3.setColorFilter(Color.parseColor("#8E8E8E"))
+            image4.setColorFilter(Color.parseColor("#8E8E8E"))
+            image5.setColorFilter(Color.parseColor("#8E8E8E"))
+
+            text1.setTextColor(Color.parseColor("#8E8E8E"))
+            text2.setTextColor(Color.parseColor("#d81e06"))
+            text3.setTextColor(Color.parseColor("#8E8E8E"))
+            text4.setTextColor(Color.parseColor("#8E8E8E"))
+            text5.setTextColor(Color.parseColor("#8E8E8E"))
+
+            fragChess(car())
+        }
+
+        action = false
+
+    }
 
     private fun fragaccont(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -536,6 +579,13 @@ class Homepage : BaseActivity() {
                 )
             }
         }
+    }
+
+    fun start(context: Context, action: Boolean){
+        val intent = Intent(context, Homepage::class.java)
+        intent.putExtra("Action", action)
+        context.startActivity(intent)
+
     }
 
 }

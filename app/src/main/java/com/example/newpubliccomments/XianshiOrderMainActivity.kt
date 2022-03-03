@@ -1,5 +1,6 @@
 package com.example.newpubliccomments
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_xianshi_order_main.*
 
 class Fruitorder(val money:String, val imageId: Int, val zhuagntai: String,val aid : String,val bid : String,val pholo : String)
@@ -54,6 +56,11 @@ class XianshiOrderMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_xianshi_order_main)
 
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+//        设置状态栏图标颜色
+        StatusBar().statusBarTextColor(this, true)
+
         var xianpholo = intent.getStringExtra("setpholo")
 
         initFruits()
@@ -66,6 +73,12 @@ class XianshiOrderMainActivity : AppCompatActivity() {
 
         recyclerViewxian.adapter = adapter
 
+    }
+
+    fun start(context: Context, gopholo: String){
+        val intent = Intent(context, XianshiOrderMainActivity::class.java)
+        intent.putExtra("setpholo",gopholo)
+        context.startActivity(intent)
     }
 
     private fun initFruits() {
@@ -139,9 +152,9 @@ class XianshiOrderMainActivity : AppCompatActivity() {
 
 
         Del_backxiaxian.setOnClickListener {
-            val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
-            intent.putExtra("gopholo",xianpholo)
-            startActivity(intent)
+
+            onBackPressed()
+
         }
 
 

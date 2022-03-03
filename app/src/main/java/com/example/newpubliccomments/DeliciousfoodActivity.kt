@@ -1,5 +1,6 @@
 package com.example.newpubliccomments
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +12,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_deliciousfood.*
+import kotlinx.android.synthetic.main.activity_deliciousfood.Del_back
+import kotlinx.android.synthetic.main.activity_deliciousfood.recyclerView
 import kotlinx.android.synthetic.main.activity_password.*
+import kotlinx.android.synthetic.main.fragment_deliciousfood.*
 
 class Fruit(val name:String, val imageId: Int, val profile: String,val aid : Int,var pholo : String)
 
@@ -101,14 +106,26 @@ class DeliciousfoodActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_deliciousfood)
+        setContentView(R.layout.fragment_deliciousfood)
+
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+//        设置状态栏图标颜色
+        StatusBar().statusBarTextColor(this, true)
 
         var gopholo = intent.getStringExtra("delpholo").toString()
 
         Del_back.setOnClickListener {
-            val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
-            intent.putExtra("gopholo",gopholo)
-            startActivity(intent)
+//            val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
+//            intent.putExtra("gopholo",gopholo)
+//            startActivity(intent)
+
+            onBackPressed()
+
+        }
+
+        location.setOnClickListener {
+            Homepage().start(it.context, true)
         }
 
         initFruits()
@@ -139,7 +156,12 @@ class DeliciousfoodActivity : AppCompatActivity() {
 
         cursor.close()
 
-
-
     }
+
+    fun start(context: Context, gopholo: String){
+        val intent = Intent(context, DeliciousfoodActivity::class.java)
+        intent.putExtra("delpholo",gopholo)
+        context.startActivity(intent)
+    }
+
 }
