@@ -20,6 +20,7 @@
 
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/yjtp"
         android:label="大众点评"
@@ -112,6 +113,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths_public" />
         </provider>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="ouSUBvzwuX2oXKNWjEkqLdWRlT7dNreP"/>
 
     </application>
 

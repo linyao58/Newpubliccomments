@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".CarActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="王者"
-        android:textSize="30dp"
-       />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

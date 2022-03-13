@@ -28,6 +28,12 @@ android {
         enabled true //启用dataBinding
     }
 
+    sourceSets{
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+
 }
 
 dependencies {

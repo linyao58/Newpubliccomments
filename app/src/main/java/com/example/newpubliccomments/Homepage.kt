@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newpubliccomments.databinding.FragmentHomeBinding
+import com.example.newpubliccomments.location.LocationFragment
 import com.example.newpubliccomments.message.ConversationListFragment
 import com.example.newpubliccomments.tool.GlideEngine
 import com.example.newpubliccomments.tool.StatusBar
@@ -398,7 +399,10 @@ class Homepage : BaseActivity() {
             text4.setTextColor(Color.parseColor("#8E8E8E"))
             text5.setTextColor(Color.parseColor("#8E8E8E"))
 
-            fragChess(car())
+//            fragChess(car())
+
+            fragChess(LocationFragment.newInstance())
+
         }
 
         icon3.setOnClickListener{
@@ -491,42 +495,42 @@ class Homepage : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        var action = intent.getBooleanExtra("Action", false)
-        if (action){
-
-            val image1: ImageView =findViewById(R.id.iconimage1)
-            val image2: ImageView =findViewById(R.id.iconimage2)
-            val image3: ImageView =findViewById(R.id.iconimage3)
-            val image4: ImageView =findViewById(R.id.iconimage4)
-            val image5: ImageView =findViewById(R.id.iconimage5)
-            val text1: TextView =findViewById(R.id.icontext1)
-            val text2: TextView =findViewById(R.id.icontext2)
-            val text3: TextView =findViewById(R.id.icontext3)
-            val text4: TextView =findViewById(R.id.icontext4)
-            val text5: TextView =findViewById(R.id.icontext5)
-
-            image1.setImageResource(R.drawable.home)
-            image2.setImageResource(R.drawable.location)
-            image3.setImageResource(R.drawable.newadd)
-            image4.setImageResource(R.drawable.news)
-            image5.setImageResource(R.drawable.account)
-
-            image1.setColorFilter(Color.parseColor("#8E8E8E"))
-            image2.setColorFilter(Color.parseColor("#d81e06"))
-            image3.setColorFilter(Color.parseColor("#8E8E8E"))
-            image4.setColorFilter(Color.parseColor("#8E8E8E"))
-            image5.setColorFilter(Color.parseColor("#8E8E8E"))
-
-            text1.setTextColor(Color.parseColor("#8E8E8E"))
-            text2.setTextColor(Color.parseColor("#d81e06"))
-            text3.setTextColor(Color.parseColor("#8E8E8E"))
-            text4.setTextColor(Color.parseColor("#8E8E8E"))
-            text5.setTextColor(Color.parseColor("#8E8E8E"))
-
-            fragChess(car())
-        }
-
-        action = false
+//        var action = intent.getBooleanExtra("Action", false)
+//        if (action){
+//
+//            val image1: ImageView =findViewById(R.id.iconimage1)
+//            val image2: ImageView =findViewById(R.id.iconimage2)
+//            val image3: ImageView =findViewById(R.id.iconimage3)
+//            val image4: ImageView =findViewById(R.id.iconimage4)
+//            val image5: ImageView =findViewById(R.id.iconimage5)
+//            val text1: TextView =findViewById(R.id.icontext1)
+//            val text2: TextView =findViewById(R.id.icontext2)
+//            val text3: TextView =findViewById(R.id.icontext3)
+//            val text4: TextView =findViewById(R.id.icontext4)
+//            val text5: TextView =findViewById(R.id.icontext5)
+//
+//            image1.setImageResource(R.drawable.home)
+//            image2.setImageResource(R.drawable.location)
+//            image3.setImageResource(R.drawable.newadd)
+//            image4.setImageResource(R.drawable.news)
+//            image5.setImageResource(R.drawable.account)
+//
+//            image1.setColorFilter(Color.parseColor("#8E8E8E"))
+//            image2.setColorFilter(Color.parseColor("#d81e06"))
+//            image3.setColorFilter(Color.parseColor("#8E8E8E"))
+//            image4.setColorFilter(Color.parseColor("#8E8E8E"))
+//            image5.setColorFilter(Color.parseColor("#8E8E8E"))
+//
+//            text1.setTextColor(Color.parseColor("#8E8E8E"))
+//            text2.setTextColor(Color.parseColor("#d81e06"))
+//            text3.setTextColor(Color.parseColor("#8E8E8E"))
+//            text4.setTextColor(Color.parseColor("#8E8E8E"))
+//            text5.setTextColor(Color.parseColor("#8E8E8E"))
+//
+//            fragChess(car())
+//        }
+//
+//        action = false
 
     }
 

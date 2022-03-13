@@ -9,6 +9,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import com.baidu.mapapi.CoordType
+import com.baidu.mapapi.SDKInitializer
 import com.example.newpubliccomments.tool.StatusBar
 //import cn.bmob.v3.Bmob
 //import cn.bmob.v3.BmobQuery
