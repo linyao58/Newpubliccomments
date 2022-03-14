@@ -18,6 +18,11 @@
 
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:name=".App"
@@ -117,6 +122,10 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ouSUBvzwuX2oXKNWjEkqLdWRlT7dNreP"/>
+
+        <service android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
 
     </application>
 
