@@ -32,6 +32,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".location.SearchLocation"/>
         <activity android:name=".SynopsisActivity"></activity>
         <activity android:name=".XianshiOrderMainActivity">
             <intent-filter>

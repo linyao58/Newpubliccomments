@@ -117,6 +117,18 @@ class LocationFragment: Fragment() {
 
         placeLocation()
 
+        binding?.search?.setOnClickListener {
+            SearchLocation().start(it.context)
+
+//            var point = LatLng(23.143150, 113.02954)
+//            var mMapStatus = MapStatus.Builder()
+//                .target(point)
+//                .zoom(18F)
+//                .build()
+//            var mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+//            binding?.bmapView!!.map.setMapStatus(mMapStatusUpdate)
+
+        }
 
         return binding?.root
 

@@ -585,11 +585,10 @@ class Homepage : BaseActivity() {
         }
     }
 
-    fun start(context: Context, action: Boolean){
+    fun start(context: Context){
         val intent = Intent(context, Homepage::class.java)
-        intent.putExtra("Action", action)
-        context.startActivity(intent)
 
+        context.startActivity(intent)
     }
 
 }
