@@ -95,6 +95,18 @@ class LocationFragment: Fragment() {
             fragment.arguments = args
             return fragment
         }
+
+        fun newSecondInstance(type: Int, weidu: Double, jindu: Double): LocationFragment {
+            val args = Bundle()
+
+            val fragment = LocationFragment()
+            args.putInt("type", type)
+            args.putDouble("weidu", weidu)
+            args.putDouble("jindu", jindu)
+            fragment.arguments = args
+            return fragment
+        }
+
     }
 
     override fun onCreateView(
@@ -109,11 +121,16 @@ class LocationFragment: Fragment() {
 
         checkVersion()
 
-        locationService = LocationService(this.requireContext().applicationContext)
-        locationService!!.registerListener(mListener)
-        //注册监听
-        locationService!!.setLocationOption(locationService!!.defaultLocationClientOption)
-        locationService!!.start()
+        var type = arguments?.getInt("type")
+        if (type == 2){
+            location()
+        }else{
+            locationService = LocationService(this.requireContext().applicationContext)
+            locationService!!.registerListener(mListener)
+            //注册监听
+            locationService!!.setLocationOption(locationService!!.defaultLocationClientOption)
+            locationService!!.start()
+        }
 
         placeLocation()
 
@@ -131,6 +148,24 @@ class LocationFragment: Fragment() {
         }
 
         return binding?.root
+
+    }
+
+    private fun location(){
+        var weidu = arguments?.getDouble("weidu")
+        var jindu = arguments?.getDouble("jindu")
+
+        if (weidu != null) {
+            if (jindu != null) {
+                var point = LatLng(weidu, jindu)
+                var mMapStatus = MapStatus.Builder()
+                    .target(point)
+                    .zoom(18F)
+                    .build()
+                var mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+                binding?.bmapView!!.map.setMapStatus(mMapStatusUpdate)
+            }
+        }
 
     }
 
@@ -192,28 +227,50 @@ class LocationFragment: Fragment() {
         mPoiSearch.setOnGetPoiSearchResultListener(listener)
 
         binding?.fool?.setOnClickListener {
-            mPoiSearch.searchNearby(
-                PoiNearbySearchOption()
-                    .location(mLongitudeStr?.toDouble()?.let {
-                        mLatitudeStr?.toDouble()?.let { it1 ->
-                            LatLng(
-                                it1,
-                                it
-                            )
-                        }
-                    })
-                    .radius(1000)
+            var type = arguments?.getInt("type")
+            if (type == 2){
+
+                var weidu = arguments?.getDouble("weidu")
+                var jindu = arguments?.getDouble("jindu")
+                if (weidu != null && jindu != null){
+
+                    mPoiSearch.searchNearby(
+                        PoiNearbySearchOption()
+                            .location(LatLng(weidu, jindu))
+                            .radius(1000)
 //                    .city(citys.toString()) //必填
-                    .keyword(binding?.fool?.text?.toString()) //必填
-                    .pageNum(0)
-            )
+                            .keyword(binding?.fool?.text?.toString()) //必填
+                            .pageNum(0)
+                    )
 
+                    mPoiSearch.destroy()
 
+                    mPoiSearch.setOnGetPoiSearchResultListener(listener)
 
-            mPoiSearch.destroy()
+                }
 
-            mPoiSearch.setOnGetPoiSearchResultListener(listener)
+            }else{
+                mPoiSearch.searchNearby(
+                    PoiNearbySearchOption()
+                        .location(mLongitudeStr?.toDouble()?.let {
+                            mLatitudeStr?.toDouble()?.let { it1 ->
+                                LatLng(
+                                    it1,
+                                    it
+                                )
+                            }
+                        })
+                        .radius(1000)
+//                    .city(citys.toString()) //必填
+                        .keyword(binding?.fool?.text?.toString()) //必填
+                        .pageNum(0)
+                )
 
+                mPoiSearch.destroy()
+
+                mPoiSearch.setOnGetPoiSearchResultListener(listener)
+
+            }
 
         }
 

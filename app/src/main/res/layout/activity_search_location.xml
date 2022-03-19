@@ -49,6 +49,7 @@
             app:layout_constraintTop_toBottomOf="@id/edt" />
 
         <com.baidu.mapapi.map.MapView
+            android:visibility="gone"
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="0dp"

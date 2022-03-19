@@ -125,7 +125,7 @@ class DeliciousfoodActivity : AppCompatActivity() {
         }
 
         location.setOnClickListener {
-//            Homepage().start(it.context, true)
+            Homepage().start(it.context, 3, 0.00, 0.00)
         }
 
         initFruits()

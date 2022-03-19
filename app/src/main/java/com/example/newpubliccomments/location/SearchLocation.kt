@@ -75,18 +75,9 @@ class SearchLocation: BaseActivity() {
                     var ssjindu = fruit["mlongitudeStr"]
                     Log.d("纬度",ssweidu.toString())
                     Log.d("经度",ssjindu.toString())
-
                     if (ssweidu != null && ssjindu != null){
-                        val point = LatLng(ssweidu.toDouble(), ssjindu.toDouble())
-                        var mMapStatus = MapStatus.Builder()
-                            .target(point)
-                            .zoom(18F)
-                            .build()
-                        var mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
-                        binding?.map!!.map.setMapStatus(mMapStatusUpdate)
+                        Homepage().start(this, 2, ssweidu.toDouble(), ssjindu.toDouble())
                     }
-
-                    binding?.sugList?.visibility = View.GONE
 
                 }
 

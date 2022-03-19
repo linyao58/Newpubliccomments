@@ -496,39 +496,42 @@ class Homepage : BaseActivity() {
         super.onResume()
 
 //        var action = intent.getBooleanExtra("Action", false)
-//        if (action){
-//
-//            val image1: ImageView =findViewById(R.id.iconimage1)
-//            val image2: ImageView =findViewById(R.id.iconimage2)
-//            val image3: ImageView =findViewById(R.id.iconimage3)
-//            val image4: ImageView =findViewById(R.id.iconimage4)
-//            val image5: ImageView =findViewById(R.id.iconimage5)
-//            val text1: TextView =findViewById(R.id.icontext1)
-//            val text2: TextView =findViewById(R.id.icontext2)
-//            val text3: TextView =findViewById(R.id.icontext3)
-//            val text4: TextView =findViewById(R.id.icontext4)
-//            val text5: TextView =findViewById(R.id.icontext5)
-//
-//            image1.setImageResource(R.drawable.home)
-//            image2.setImageResource(R.drawable.location)
-//            image3.setImageResource(R.drawable.newadd)
-//            image4.setImageResource(R.drawable.news)
-//            image5.setImageResource(R.drawable.account)
-//
-//            image1.setColorFilter(Color.parseColor("#8E8E8E"))
-//            image2.setColorFilter(Color.parseColor("#d81e06"))
-//            image3.setColorFilter(Color.parseColor("#8E8E8E"))
-//            image4.setColorFilter(Color.parseColor("#8E8E8E"))
-//            image5.setColorFilter(Color.parseColor("#8E8E8E"))
-//
-//            text1.setTextColor(Color.parseColor("#8E8E8E"))
-//            text2.setTextColor(Color.parseColor("#d81e06"))
-//            text3.setTextColor(Color.parseColor("#8E8E8E"))
-//            text4.setTextColor(Color.parseColor("#8E8E8E"))
-//            text5.setTextColor(Color.parseColor("#8E8E8E"))
-//
-//            fragChess(car())
-//        }
+        var type = intent.getIntExtra("type", 0)
+        var weidu  = intent.getDoubleExtra("weidu", 0.00)
+        var jindu = intent.getDoubleExtra("jindu", 0.00)
+        if (type == 2 || type == 3){
+
+            val image1: ImageView =findViewById(R.id.iconimage1)
+            val image2: ImageView =findViewById(R.id.iconimage2)
+            val image3: ImageView =findViewById(R.id.iconimage3)
+            val image4: ImageView =findViewById(R.id.iconimage4)
+            val image5: ImageView =findViewById(R.id.iconimage5)
+            val text1: TextView =findViewById(R.id.icontext1)
+            val text2: TextView =findViewById(R.id.icontext2)
+            val text3: TextView =findViewById(R.id.icontext3)
+            val text4: TextView =findViewById(R.id.icontext4)
+            val text5: TextView =findViewById(R.id.icontext5)
+
+            image1.setImageResource(R.drawable.home)
+            image2.setImageResource(R.drawable.location)
+            image3.setImageResource(R.drawable.newadd)
+            image4.setImageResource(R.drawable.news)
+            image5.setImageResource(R.drawable.account)
+
+            image1.setColorFilter(Color.parseColor("#8E8E8E"))
+            image2.setColorFilter(Color.parseColor("#d81e06"))
+            image3.setColorFilter(Color.parseColor("#8E8E8E"))
+            image4.setColorFilter(Color.parseColor("#8E8E8E"))
+            image5.setColorFilter(Color.parseColor("#8E8E8E"))
+
+            text1.setTextColor(Color.parseColor("#8E8E8E"))
+            text2.setTextColor(Color.parseColor("#d81e06"))
+            text3.setTextColor(Color.parseColor("#8E8E8E"))
+            text4.setTextColor(Color.parseColor("#8E8E8E"))
+            text5.setTextColor(Color.parseColor("#8E8E8E"))
+
+            fragChess(LocationFragment.newSecondInstance(type, weidu, jindu))
+        }
 //
 //        action = false
 
@@ -555,7 +558,7 @@ class Homepage : BaseActivity() {
         transaction.commit()
     }
 
-    private fun fragChess(fragment: Fragment) {
+    public fun fragChess(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.frag,fragment)
@@ -585,9 +588,11 @@ class Homepage : BaseActivity() {
         }
     }
 
-    fun start(context: Context){
+    fun start(context: Context, type: Int, weidu: Double, jindu: Double){
         val intent = Intent(context, Homepage::class.java)
-
+            intent.putExtra("type", type)
+            intent.putExtra("weidu", weidu)
+            intent.putExtra("jindu", jindu)
         context.startActivity(intent)
     }
 
