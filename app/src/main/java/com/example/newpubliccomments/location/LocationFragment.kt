@@ -147,6 +147,13 @@ class LocationFragment: Fragment() {
 
         }
 
+        binding?.luxian?.setOnClickListener {
+            if (mLatitudeStr != null && mLongitudeStr != null){
+                RouteActivty().start(it.context, mLatitudeStr!!.toDouble(), mLongitudeStr!!.toDouble())
+            }
+
+        }
+
         return binding?.root
 
     }
@@ -160,7 +167,7 @@ class LocationFragment: Fragment() {
                 var point = LatLng(weidu, jindu)
                 var mMapStatus = MapStatus.Builder()
                     .target(point)
-                    .zoom(18F)
+                    .zoom(20F)
                     .build()
                 var mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
                 binding?.bmapView!!.map.setMapStatus(mMapStatusUpdate)
@@ -225,7 +232,7 @@ class LocationFragment: Fragment() {
 
 
         mPoiSearch.setOnGetPoiSearchResultListener(listener)
-
+//      美食
         binding?.fool?.setOnClickListener {
             var type = arguments?.getInt("type")
             if (type == 2){
@@ -263,6 +270,106 @@ class LocationFragment: Fragment() {
                         .radius(1000)
 //                    .city(citys.toString()) //必填
                         .keyword(binding?.fool?.text?.toString()) //必填
+                        .pageNum(0)
+                )
+
+                mPoiSearch.destroy()
+
+                mPoiSearch.setOnGetPoiSearchResultListener(listener)
+
+            }
+
+        }
+//        医院
+        binding?.hospital?.setOnClickListener {
+
+            var type = arguments?.getInt("type")
+            if (type == 2){
+
+                var weidu = arguments?.getDouble("weidu")
+                var jindu = arguments?.getDouble("jindu")
+                if (weidu != null && jindu != null){
+
+                    mPoiSearch.searchNearby(
+                        PoiNearbySearchOption()
+                            .location(LatLng(weidu, jindu))
+                            .radius(1000)
+//                    .city(citys.toString()) //必填
+                            .keyword(binding?.hospital?.text?.toString()) //必填
+                            .pageNum(0)
+                    )
+
+                    mPoiSearch.destroy()
+
+                    mPoiSearch.setOnGetPoiSearchResultListener(listener)
+
+                }
+
+            }else{
+                mPoiSearch.searchNearby(
+                    PoiNearbySearchOption()
+                        .location(mLongitudeStr?.toDouble()?.let {
+                            mLatitudeStr?.toDouble()?.let { it1 ->
+                                LatLng(
+                                    it1,
+                                    it
+                                )
+                            }
+                        })
+                        .radius(1000)
+//                    .city(citys.toString()) //必填
+                        .keyword(binding?.hospital?.text?.toString()) //必填
+                        .pageNum(0)
+                )
+
+                mPoiSearch.destroy()
+
+                mPoiSearch.setOnGetPoiSearchResultListener(listener)
+
+            }
+
+        }
+
+//        景点
+
+        binding?.jindian?.setOnClickListener {
+
+            var type = arguments?.getInt("type")
+            if (type == 2){
+
+                var weidu = arguments?.getDouble("weidu")
+                var jindu = arguments?.getDouble("jindu")
+                if (weidu != null && jindu != null){
+
+                    mPoiSearch.searchNearby(
+                        PoiNearbySearchOption()
+                            .location(LatLng(weidu, jindu))
+                            .radius(1000)
+//                    .city(citys.toString()) //必填
+                            .keyword(binding?.jindian?.text?.toString()) //必填
+                            .pageNum(0)
+                    )
+
+                    mPoiSearch.destroy()
+
+                    mPoiSearch.setOnGetPoiSearchResultListener(listener)
+
+                }
+
+            }else{
+                mPoiSearch.searchNearby(
+                    PoiNearbySearchOption()
+                        .location(mLongitudeStr?.toDouble()?.let {
+                            mLatitudeStr?.toDouble()?.let { it1 ->
+                                LatLng(
+                                    it1,
+                                    it
+                                )
+                            }
+                        })
+                        .radius(1000)
+//                    .city(citys.toString()) //必填
+                        .keyword(binding?.jindian?.text?.toString()) //必填
                         .pageNum(0)
                 )
 

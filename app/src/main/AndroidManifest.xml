@@ -23,6 +23,11 @@
     <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 获取访问手机振动器权限，用于导航过程中的震动提示 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
 
     <application
         android:name=".App"
@@ -32,6 +37,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".location.RouteActivty"/>
         <activity android:name=".location.SearchLocation"/>
         <activity android:name=".SynopsisActivity"></activity>
         <activity android:name=".XianshiOrderMainActivity">
