@@ -1,24 +1,26 @@
 package com.example.newpubliccomments.message
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import com.example.newpubliccomments.R
 import com.example.newpubliccomments.databinding.FragmentNewsBinding
+import io.rong.imkit.RongIM
+import io.rong.imlib.model.Conversation
 
-class ConversationListFragment : Fragment() {
+class ConverFragment : Fragment() {
 
     private var binding : FragmentNewsBinding? = null
 
+    private var letterFragment: LetterFragment? = null
+
     companion object {
-        fun newInstance(): ConversationListFragment {
+        fun newInstance(): ConverFragment {
             val args = Bundle()
 
-            val fragment = ConversationListFragment()
+            val fragment = ConverFragment()
             fragment.arguments = args
             return fragment
         }
@@ -32,7 +34,21 @@ class ConversationListFragment : Fragment() {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
 
+        binding?.but?.setOnClickListener {
+            RongIM.getInstance().startConversation(requireContext(), Conversation.ConversationType.PRIVATE, "100", "官方客服")
+        }
+
         return binding!!.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+//        letterFragment = LetterFragment.newInstance(requireContext())
+//        childFragmentManager.beginTransaction().add(R.id.FrameLayout, letterFragment!!).commit()
+
+
+
     }
 
 

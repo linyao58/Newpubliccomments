@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.baidu.location.*
-import com.baidu.mapapi.CoordType
-import com.baidu.mapapi.SDKInitializer
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.core.SearchResult
@@ -21,7 +18,6 @@ import com.baidu.mapapi.search.poi.*
 import com.example.newpubliccomments.R
 import com.example.newpubliccomments.databinding.ActivityCarBinding
 import com.example.newpubliccomments.location.overlayutil.PoiOverlay
-import com.example.newpubliccomments.message.ConversationListFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 
 var mapviews : MapView? = null

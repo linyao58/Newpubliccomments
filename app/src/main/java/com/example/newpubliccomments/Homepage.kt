@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,12 +21,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newpubliccomments.databinding.FragmentHomeBinding
 import com.example.newpubliccomments.location.LocationFragment
-import com.example.newpubliccomments.message.ConversationListFragment
+import com.example.newpubliccomments.message.ConverFragment
 import com.example.newpubliccomments.tool.GlideEngine
 import com.example.newpubliccomments.tool.StatusBar
 import com.huantansheng.easyphotos.EasyPhotos
 import com.huantansheng.easyphotos.callback.SelectCallback
 import com.huantansheng.easyphotos.models.album.entity.Photo
+import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.UserInfo
 
 //import cn.bmob.v3.exception.BmobException
 //import cn.bmob.v3.listener.SaveListener
@@ -457,7 +461,54 @@ class Homepage : BaseActivity() {
             if (gopholo != ""){
 //                fragnews(news())
 //              进入消息页面
-                fragnews(ConversationListFragment.newInstance())
+
+                RongIM.setConnectionStatusListener(object : RongIMClient.ConnectionStatusListener{
+                    override fun onChanged(p0: RongIMClient.ConnectionStatusListener.ConnectionStatus?) {
+
+                        Log.e("TAG", "onChanged123456: ${p0?.value}")
+
+                    }
+
+                })
+
+                val token = "XQRY5vJO51IV+4CxOH4qngWoIfn2uZNJ@xj69.cn.rongnav.com;xj69.cn.rongcfg.com"
+
+                RongIM.connect(token, object : RongIMClient.ConnectCallback(){
+                    override fun onSuccess(p0: String?) {
+                        Log.e("TAG", "onSuccess123456: ${p0}" )
+                    }
+
+                    override fun onDatabaseOpened(p0: RongIMClient.DatabaseOpenStatus?) {
+
+                    }
+
+                    override fun onError(p0: RongIMClient.ConnectionErrorCode?) {
+
+                    }
+
+                })
+
+                RongIM.setUserInfoProvider(object : RongIM.UserInfoProvider{
+                    override fun getUserInfo(p0: String?): UserInfo {
+                        val userInfo = UserInfo(
+                            "100",
+                            "官方客服",
+                            Uri.parse("https://lianshangke.oss-cn-zhangjiakou.aliyuncs.com/merchant/1637734692663d343522df3a751079748b21c60380d0c")
+                        )
+                        return userInfo
+                    }
+
+                }, true)
+
+                val userInfo = UserInfo(
+                    "100",
+                    "官方客服",
+                    Uri.parse("https://lianshangke.oss-cn-zhangjiakou.aliyuncs.com/merchant/1637734692663d343522df3a751079748b21c60380d0c")
+                )
+                RongIM.getInstance().refreshUserInfoCache(userInfo)
+
+
+                fragnews(ConverFragment.newInstance())
                 
             }else{
                 val intent = Intent(this,LoginActivity::class.java)
