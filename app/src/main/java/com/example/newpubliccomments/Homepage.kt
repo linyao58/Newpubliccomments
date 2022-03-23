@@ -19,17 +19,29 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.baidu.location.BDAbstractLocationListener
+import com.baidu.location.BDLocation
+import com.baidu.location.LocationClient
+import com.baidu.location.LocationClientOption
+import com.baidu.mapapi.map.MapView
+import com.baidu.mapapi.map.MyLocationData
 import com.example.newpubliccomments.databinding.FragmentHomeBinding
 import com.example.newpubliccomments.location.LocationFragment
+import com.example.newpubliccomments.location.mapviews
 import com.example.newpubliccomments.message.ConverFragment
 import com.example.newpubliccomments.tool.GlideEngine
 import com.example.newpubliccomments.tool.StatusBar
 import com.huantansheng.easyphotos.EasyPhotos
 import com.huantansheng.easyphotos.callback.SelectCallback
 import com.huantansheng.easyphotos.models.album.entity.Photo
+import com.tbruyelle.rxpermissions2.RxPermissions
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.UserInfo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 //import cn.bmob.v3.exception.BmobException
 //import cn.bmob.v3.listener.SaveListener
@@ -87,11 +99,14 @@ class FruitAdapters(val fruitList : List<Fruits>) :
 }
 
 
+
 class home(intent: Intent) : Fragment(){
 
     private var binding: FragmentHomeBinding? = null
 
     var gopholo = intent.getStringExtra("gopholo").toString()
+
+    var mLocationClient : LocationClient? = null
 
     private val fruitLists = ArrayList<Fruits>()
     @SuppressLint("WrongViewCast")
@@ -101,6 +116,8 @@ class home(intent: Intent) : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
+
+        checkVersion()
 
         var recyclerViews = binding?.recyclerView
 
@@ -127,7 +144,15 @@ class home(intent: Intent) : Fragment(){
         return binding!!.root
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        GlobalScope.launch(Dispatchers.Main){
+            delay(500)
+            binding?.data = city
+        }
+
+    }
 
     private fun initFruits() {
         var s_pholo = gopholo
@@ -153,6 +178,49 @@ class home(intent: Intent) : Fragment(){
         
     }
 
+    @SuppressLint("CheckResult")
+    private fun checkVersion(){
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+            var rxPermissions =  RxPermissions(requireActivity())
+            rxPermissions.request(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe { granted: Boolean ->
+                    if (granted) { //申请成功
+                        //发起连续定位请求
+                        initLocation() // 定位初始化
+                    } else { //申请失败
+                        Toast.makeText(requireContext(), "权限未开启", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }else {
+            initLocation();// 定位初始化
+        }
+    }
+
+    private fun initLocation() {
+        //开启定位图层
+
+        binding?.map?.map?.isMyLocationEnabled = true
+
+        mLocationClient = LocationClient(this.requireContext())
+        var myLocationListener : MyLocationListener = MyLocationListener()
+        mLocationClient!!.registerLocationListener(myLocationListener)
+        var option : LocationClientOption = LocationClientOption()
+
+        option.setIsNeedAddress(true)
+        option.addrType = "all"
+        option.setOpenGps(true)
+        option.setCoorType("bd09ll")
+        option.setScanSpan(1000)
+
+        mLocationClient!!.locOption = option
+
+        mLocationClient!!.start()
+    }
 
 }
 
@@ -174,6 +242,7 @@ class setting(intent: Intent) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_setting,container,false)
+
 
         var quxiao = view.findViewById(R.id.setting_quxiao) as TextView
         var edt_synopsis = view.findViewById(R.id.edt_synopsis) as EditText
@@ -302,6 +371,8 @@ class accont(intent: Intent) : Fragment(){
     }
 }
 
+var city : String? = null
+
 class Homepage : BaseActivity() {
 
     //读写权限
@@ -313,9 +384,11 @@ class Homepage : BaseActivity() {
     //请求状态码
     val REQUEST_PERMISSION_CODE = 1
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -327,6 +400,7 @@ class Homepage : BaseActivity() {
         StatusBar().statusBarColor(this)
 //        设置状态栏图标颜色
         StatusBar().statusBarTextColor(this, true)
+
 
         var gopholo = intent.getStringExtra("gopholo").toString()
         Log.e("xianshi",gopholo)
@@ -639,6 +713,8 @@ class Homepage : BaseActivity() {
         }
     }
 
+
+
     fun start(context: Context, type: Int, weidu: Double, jindu: Double){
         val intent = Intent(context, Homepage::class.java)
             intent.putExtra("type", type)
@@ -647,4 +723,20 @@ class Homepage : BaseActivity() {
         context.startActivity(intent)
     }
 
+}
+
+class MyLocationListener : BDAbstractLocationListener() {
+    //private val mapviews: MapView? = null
+    var isFirstLoc = true
+    override fun onReceiveLocation(location: BDLocation) {
+
+        // MapView 销毁后不在处理新接收的位置
+        if (location == null) {
+            return
+        }
+
+        city = location.city
+        Log.e("TAG", "onReceiveLocation: ${location.city}")
+
+    }
 }

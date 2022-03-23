@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.newpubliccomments.R
 import com.example.newpubliccomments.databinding.FragmentNewsBinding
+import com.example.newpubliccomments.tool.StatusBar
 import io.rong.imkit.RongIM
 import io.rong.imlib.model.Conversation
 
@@ -34,7 +35,7 @@ class ConverFragment : Fragment() {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false)
 
-        binding?.but?.setOnClickListener {
+        binding?.item?.setOnClickListener {
             RongIM.getInstance().startConversation(requireContext(), Conversation.ConversationType.PRIVATE, "100", "官方客服")
         }
 

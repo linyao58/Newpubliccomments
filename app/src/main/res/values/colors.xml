@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#E0E0E0</color>
+    <color name="line">#E6E6E6</color>
+    <color name="news_bg">#F0F0F0</color>
+    <color name="backgrount">#BEBEBE</color>
+    <color name="news1">#FCFCFC</color>
+
 </resources>
