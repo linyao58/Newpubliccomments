@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.bmob.v3.Bmob
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
@@ -140,6 +141,8 @@ class home(intent: Intent) : Fragment(){
             DeliciousfoodActivity().start(it.context, gopholo)
 
         }
+
+
 
         return binding!!.root
     }
@@ -285,7 +288,7 @@ class setting(intent: Intent) : Fragment() {
                         photos: java.util.ArrayList<Photo>?,
                         isOriginal: Boolean
                     ) {
-                        Log.e("TAG", "onResult: ${photos?.size}")
+                        Log.e("TAG", "onResult: ${photos?.get(0)?.uri}")
                     }
 
                     override fun onCancel() {
@@ -388,6 +391,7 @@ class Homepage : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
 
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {

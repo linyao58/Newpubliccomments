@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import cn.bmob.v3.Bmob
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.example.newpubliccomments.tool.StatusBar
@@ -24,6 +25,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
 //      使状态栏变透明，使布局变成侵入式布局
         StatusBar().statusBarColor(this)

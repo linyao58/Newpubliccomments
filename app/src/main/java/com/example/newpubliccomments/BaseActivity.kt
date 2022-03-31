@@ -7,6 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import cn.bmob.v3.Bmob
 import io.rong.imkit.RongIM
 
 open class BaseActivity : AppCompatActivity() {
@@ -18,6 +19,8 @@ open class BaseActivity : AppCompatActivity() {
 
         val appKey = "82hegw5u8ewyx"
         RongIM.init(this.applicationContext, appKey)
+
+        Bmob.initialize(this, "2360af0493680c314b0a6f77b2fa5975")
 
     }
 

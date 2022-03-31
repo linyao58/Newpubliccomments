@@ -143,6 +143,11 @@
                 android:resource="@xml/file_paths_public" />
         </provider>
 
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.example.newpubliccomments.BmobContentProvider">
+        </provider>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ouSUBvzwuX2oXKNWjEkqLdWRlT7dNreP"/>

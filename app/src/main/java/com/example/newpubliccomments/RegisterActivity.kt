@@ -5,7 +5,11 @@ import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.SaveListener
+import com.example.newpubliccomments.signregister.PublicMyUser
 import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -24,30 +28,43 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         userzuces.setOnClickListener {
-            val dbHelper = MyDatabaseHelper(this, "Publiccomments.db",23)
-            val db = dbHelper.writableDatabase
             var r_pholo = R_pholo.text.toString()
             var r_pass = R_pass.text.toString()
 
-            val values1 = ContentValues().apply {
-                put("userpholo",r_pholo)
-                put("userpassword",r_pass)
-            }
-            if(r_pholo.length == 11 && r_pass.length >= 6){
-                db.insert("User",null,values1)
-                AlertDialog.Builder(this).apply {
-                    setTitle("注册")
-                    setMessage("注册成功，是否跳转到登录？")
-                    setCancelable(false)
-                    setPositiveButton("确定") { dialog, which ->
-                        val intent = Intent(context, LoginActivity::class.java)
-                        startActivity(intent)
 
+            if(r_pholo.length == 11 && r_pass.length >= 6){
+
+                val user = PublicMyUser()
+                user.phone = r_pholo
+                user.password = r_pass
+
+                user.save(object : SaveListener<String>(){
+                    override fun done(p0: String?, p1: BmobException?) {
+                        if (p1 == null){
+
+                            AlertDialog.Builder(this@RegisterActivity).apply {
+                                setTitle("注册")
+                                setMessage("注册成功，是否跳转到登录？")
+                                setCancelable(false)
+                                setPositiveButton("确定") { dialog, which ->
+                                    val intent = Intent(context, LoginActivity::class.java)
+                                    startActivity(intent)
+
+                                }
+                                setNegativeButton("取消") { dialog, which ->
+                                }
+                                show()
+                            }
+
+                            Toast.makeText(this@RegisterActivity, "注册成功", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(this@RegisterActivity, "创建数据失败:${p1.message}", Toast.LENGTH_SHORT).show()
+                            Log.e("TAG", "done1356: ${p1.message}")
+                        }
                     }
-                    setNegativeButton("取消") { dialog, which ->
-                    }
-                    show()
-                }
+
+                })
+
             }else{
                 Toast.makeText(this, "注册失败,请输入正确的手机号", Toast.LENGTH_SHORT).show()
             }
