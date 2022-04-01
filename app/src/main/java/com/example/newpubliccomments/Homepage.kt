@@ -20,16 +20,21 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.Bmob
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.map.MapView
 import com.baidu.mapapi.map.MyLocationData
+import com.bumptech.glide.Glide
 import com.example.newpubliccomments.databinding.FragmentHomeBinding
 import com.example.newpubliccomments.location.LocationFragment
 import com.example.newpubliccomments.location.mapviews
 import com.example.newpubliccomments.message.ConverFragment
+import com.example.newpubliccomments.signregister.PublicMyUser
 import com.example.newpubliccomments.tool.GlideEngine
 import com.example.newpubliccomments.tool.StatusBar
 import com.huantansheng.easyphotos.EasyPhotos
@@ -356,6 +361,9 @@ class accont(intent: Intent) : Fragment(){
                 startActivity(intent)
             }
         }else{
+
+
+
             var click : TextView = view.findViewById(R.id.but_click) as TextView
             var zushi : TextView = view.findViewById(R.id.zushi) as TextView
             var geren : TextView = view.findViewById(R.id.geren) as TextView
@@ -363,7 +371,28 @@ class accont(intent: Intent) : Fragment(){
             click.text = gopholo
             zushi.text = "粉丝|关注"
             geren.text = "个人主页>"
-            accont_tou.setImageResource(R.drawable.jiutou)
+//            accont_tou.setImageResource(R.drawable.jiutou)
+
+//            获取头像并显示
+            val user = BmobQuery<PublicMyUser>()
+            user.findObjects(object : FindListener<PublicMyUser>(){
+                override fun done(p0: MutableList<PublicMyUser>?, p1: BmobException?) {
+                    if (p1 == null){
+
+                        if (p0 != null) {
+                            for (user: PublicMyUser in p0){
+                                if (user.phone == gopholo){
+                                    Glide.with(this@accont).load(user.avatar).placeholder(R.drawable.jiutou).into(accont_tou)
+                                }
+                            }
+                        }
+                    }else{
+                        Toast.makeText(requireContext(), "查询失败", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            })
+
             os.setOnClickListener {
                 val intent = Intent("com.example.newpubliccomment_Peplo.ACTION_START")
                 startActivity(intent)

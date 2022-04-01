@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
+import com.example.newpubliccomments.signregister.PublicMyUser
 import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_password.*
 
@@ -18,21 +23,21 @@ class PasswordActivity : AppCompatActivity() {
 
 
 
-    /*private fun queryObjects() {
+    private fun queryObjects() {
         var getpholos = intent.getStringExtra("pholos").toString()
         var textmima = edtmima.text.toString()
-        var bmobQuery: BmobQuery<Publicuser> = BmobQuery()
-        bmobQuery.findObjects(object : FindListener<Publicuser>() {
-            override fun done(posts: MutableList<Publicuser>?, ex: BmobException?) {
+        var bmobQuery: BmobQuery<PublicMyUser> = BmobQuery()
+        bmobQuery.findObjects(object : FindListener<PublicMyUser>() {
+            override fun done(posts: MutableList<PublicMyUser>?, ex: BmobException?) {
 
                 if (ex == null) {
-                    Toast.makeText(mContext, "查询成功", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@PasswordActivity, "登录成功", Toast.LENGTH_LONG).show()
                     if (posts != null) {
-                        for (post: Publicuser in posts) {
+                        for (post: PublicMyUser in posts) {
 
-                            if (post.P_username == getpholos){
+                            if (post.phone == getpholos){
 
-                                posword = post.P_password.toString()
+                                posword = post.password.toString()
 
                                 if (textmima == posword){
                                     val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
@@ -44,27 +49,27 @@ class PasswordActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@PasswordActivity, ex.message, Toast.LENGTH_LONG).show()
                 }
             }
         })
     }
 
 
-    private fun updateOne(objid : String) {
-
-        val gameScore = GameScore()
-        gameScore.isPay = true
-        gameScore.update(objid, object : UpdateListener() {
-            override fun done(e: BmobException?) {
-                if (e == null) {
-                    Log.i("bmob", "更新成功")
-                } else {
-                    Log.i("bmob", "更新失败：" + e.message + "," + e.errorCode)
-                }
-            }
-        })
-    }*/
+//    private fun updateOne(objid : String) {
+//
+//        val gameScore = GameScore()
+//        gameScore.isPay = true
+//        gameScore.update(objid, object : UpdateListener() {
+//            override fun done(e: BmobException?) {
+//                if (e == null) {
+//                    Log.i("bmob", "更新成功")
+//                } else {
+//                    Log.i("bmob", "更新失败：" + e.message + "," + e.errorCode)
+//                }
+//            }
+//        })
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,35 +97,36 @@ class PasswordActivity : AppCompatActivity() {
         }
         but_nexttow.setOnClickListener {
             //updateOne(objid)
-            //queryObjects()
+            queryObjects()
 
 
-            val dbHelper = MyDatabaseHelper(this, "Publiccomments.db",23)
-            val db = dbHelper.writableDatabase
-            val cursor = db.query("User",null,null,null,null,null,null)
-            if(cursor.moveToFirst()){
-                do {
-                    val L_pholo = cursor.getString(cursor.getColumnIndex("userpholo"))
-                    val L_password = cursor.getString(cursor.getColumnIndex("userpassword"))
-
-                    var lgetpholos = intent.getStringExtra("pholos").toString()
-                    var textmima = edtmima.text.toString()
-
-                    if (L_pholo == lgetpholos && L_password == textmima){
-                        Log.e("显示",L_password)
-                        val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
-                        intent.putExtra("gopholo",getpholos)
-                        startActivity(intent)
-                    }
-                }while (cursor.moveToNext())
-            }
-
-            cursor.close()
+//            val dbHelper = MyDatabaseHelper(this, "Publiccomments.db",23)
+//            val db = dbHelper.writableDatabase
+//            val cursor = db.query("User",null,null,null,null,null,null)
+//            if(cursor.moveToFirst()){
+//                do {
+//                    val L_pholo = cursor.getString(cursor.getColumnIndex("userpholo"))
+//                    val L_password = cursor.getString(cursor.getColumnIndex("userpassword"))
+//
+//                    var lgetpholos = intent.getStringExtra("pholos").toString()
+//                    var textmima = edtmima.text.toString()
+//
+//                    if (L_pholo == lgetpholos && L_password == textmima){
+//                        Log.e("显示",L_password)
+//                        val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
+//                        intent.putExtra("gopholo",getpholos)
+//                        startActivity(intent)
+//                    }
+//                }while (cursor.moveToNext())
+//            }
+//
+//            cursor.close()
         }
 
         yanzhengmas.setOnClickListener {
+            var getpholos = intent.getStringExtra("pholos").toString()
             val intent = Intent(this,VerificationCodeActivity::class.java)
-            intent.putExtra("pholos",getpholo)
+            intent.putExtra("pholos",getpholos)
             startActivity(intent)
         }
 
