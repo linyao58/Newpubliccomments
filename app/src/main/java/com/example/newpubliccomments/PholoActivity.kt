@@ -42,7 +42,7 @@ class PholoActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, ex.Messages, Toast.LENGTH_LONG).show()
                 }
             }
         })

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">New public comments</string>
     <string name="meishi">美食</string>
+    <string name="rong">聊天(%s)</string>
+    <string name="grade">%s分</string>
+    <string name="message">评论(%s)</string>
 </resources>

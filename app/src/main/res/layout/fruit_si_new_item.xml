@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fruitImage"
-                app:layout_constraintEnd_toStartOf="@id/qinggou">
+                app:layout_constraintEnd_toStartOf="@id/state">
 
                 <TextView
                     android:id="@+id/fruitName"
@@ -57,18 +57,17 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/qinggou"
-                android:layout_width="75dp"
-                android:layout_height="30dp"
-                android:background="@drawable/button_item"
-                android:textColor="#FFFFFF"
-                android:text="抢购"
+            <TextView
+                android:id="@+id/state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
                 android:textSize="15dp"
-                android:layout_marginEnd="15dp"
+                android:textColor="@color/state"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                tools:text="哈哈哈"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

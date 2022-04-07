@@ -1,8 +1,7 @@
-package com.example.newpubliccomments
+package com.example.newpubliccomments.collection
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,37 +11,32 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import com.bumptech.glide.Glide
+import com.example.newpubliccomments.*
 import com.example.newpubliccomments.business.Business
-import com.example.newpubliccomments.databinding.FragmentDeliciousfoodBinding
+import com.example.newpubliccomments.databinding.ActivityCollectionBinding
 import com.example.newpubliccomments.tool.StatusBar
-import kotlinx.android.synthetic.main.activity_deliciousfood.*
-import kotlinx.android.synthetic.main.activity_deliciousfood.Del_back
-import kotlinx.android.synthetic.main.activity_deliciousfood.recyclerView
-import kotlinx.android.synthetic.main.activity_password.*
-import kotlinx.android.synthetic.main.fragment_deliciousfood.*
 
-class Fruit(val name:String, val image: String, val profile: String,val aid : String,var pholo : String, var rating: Float)
 
-class FruitAdapter(val fruitList: List<Fruit>) :
-    RecyclerView.Adapter<FruitAdapter.ViewHolder>(){
+class FruitCollection(val name:String, val image: String, val profile: String,val aid : String,var pholo : String, var grade: Float)
+
+class FruitAdapterCollection(val fruitList: List<FruitCollection>) :
+    RecyclerView.Adapter<FruitAdapterCollection.ViewHolder>(){
 
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val fruitImage : ImageView = view.findViewById(R.id.fruitImage)
         val fruitName : TextView = view.findViewById(R.id.fruitName)
         val fruitProfile : TextView = view.findViewById(R.id.fruitProfile)
-        val fruitRating: RatingBar = view.findViewById(R.id.rating)
+        val fruitGrade : RatingBar = view.findViewById(R.id.rating)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FruitAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FruitAdapterCollection.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fruit_towitem,parent,false)
 
@@ -91,61 +85,46 @@ class FruitAdapter(val fruitList: List<Fruit>) :
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: FruitAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FruitAdapterCollection.ViewHolder, position: Int) {
         val fruit = fruitList[position]
         Glide.with(holder.itemView.context).load(fruit.image).into(holder.fruitImage)
         holder.fruitName.text = fruit.name
         holder.fruitProfile.text = fruit.profile
-        holder.fruitRating.rating = fruit.rating
+        holder.fruitGrade.rating = fruit.grade
     }
 
     override fun getItemCount() = fruitList.size
 
 }
 
-class DeliciousfoodActivity : BaseActivity() {
+class CollectionActivity : BaseActivity(){
 
-    private val fruitList = ArrayList<Fruit>()
+    private val fruitList = ArrayList<FruitCollection>()
 
-    private var binding: FragmentDeliciousfoodBinding? = null
+    private var binding: ActivityCollectionBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.fragment_deliciousfood)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_collection)
 
         //        使状态栏变透明，使布局变成侵入式布局
         StatusBar().statusBarColor(this)
 //        设置状态栏图标颜色
         StatusBar().statusBarTextColor(this, true)
 
-        var gopholo = intent.getStringExtra("delpholo").toString()
-
-        binding?.DelBack?.setOnClickListener {
-//            val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
-//            intent.putExtra("gopholo",gopholo)
-//            startActivity(intent)
+        binding?.back?.setOnClickListener {
 
             onBackPressed()
 
         }
 
-        binding?.location?.setOnClickListener {
-            Homepage().start(it.context, 3, 0.00, 0.00)
-        }
-
         initFruits()
-//        val layoutManager = LinearLayoutManager(this)
-//        //线性布局
-//        binding?.recyclerView?.layoutManager = layoutManager
-//        //完成适配器配置
-//        val adapter = FruitAdapter(fruitList)
-//        binding?.recyclerView?.adapter = adapter
 
     }
 
+    private fun initFruits(){
 
-    private fun initFruits() {
         var gopholo = intent.getStringExtra("delpholo").toString()
 
         val bmobQuery = BmobQuery<Business>()
@@ -159,21 +138,23 @@ class DeliciousfoodActivity : BaseActivity() {
                             var introduce = it.introduce
                             var id = it.objectId
                             var grade = it.grade
-                            fruitList.add(Fruit(title, bavatar, introduce, id, gopholo, grade.toFloat()))
+                            if (it.collection == true){
+                                fruitList.add(FruitCollection(title, bavatar, introduce, id, gopholo, grade.toFloat()))
+                            }
                         }
 
-                        val layoutManager = LinearLayoutManager(this@DeliciousfoodActivity)
+                        val layoutManager = LinearLayoutManager(this@CollectionActivity)
                         //线性布局
                         binding?.recyclerView?.layoutManager = layoutManager
                         //完成适配器配置
-                        val adapter = FruitAdapter(fruitList)
+                        val adapter = FruitAdapterCollection(fruitList)
                         binding?.recyclerView?.adapter = adapter
 
                     }
 
 //                    Toast.makeText(this@DeliciousfoodActivity, "查询成功${p0?.get(0)?.bavatar}", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@DeliciousfoodActivity, "查询失败", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CollectionActivity, "查询失败", Toast.LENGTH_SHORT).show()
                     Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
                 }
             }
@@ -183,7 +164,7 @@ class DeliciousfoodActivity : BaseActivity() {
     }
 
     fun start(context: Context, gopholo: String){
-        val intent = Intent(context, DeliciousfoodActivity::class.java)
+        val intent = Intent(context, CollectionActivity::class.java)
         intent.putExtra("delpholo",gopholo)
         context.startActivity(intent)
     }

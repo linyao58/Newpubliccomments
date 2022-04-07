@@ -10,6 +10,7 @@ public class PublicMyUser extends BmobObject {
     private String mailbox;
     private String avatar;
     private String sex;
+    private String rongid;
 
     public String getName() {
         return name;
@@ -51,6 +52,13 @@ public class PublicMyUser extends BmobObject {
     }
     public void setSex(String sex){
         this.sex = sex;
+    }
+
+    public String getRongid(){
+        return rongid;
+    }
+    public void setRongid(String rongid){
+        this.rongid = rongid;
     }
 
 }

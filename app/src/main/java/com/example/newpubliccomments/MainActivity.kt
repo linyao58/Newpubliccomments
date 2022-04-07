@@ -85,8 +85,8 @@ class MainActivity : BaseActivity() {
                         }
                     }
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
-                    ex.message?.let { Log.e("xianshi", it) }
+                    Toast.makeText(mContext, ex.Messages, Toast.LENGTH_LONG).show()
+                    ex.Messages?.let { Log.e("xianshi", it) }
                 }
             }
         })

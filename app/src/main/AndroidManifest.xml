@@ -39,6 +39,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".collection.CollectionActivity"/>
+
         <activity android:name=".message.ChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -71,7 +73,7 @@
         <activity android:name=".SystemActivity" />
         <activity
             android:name=".BusinessMainActivity"
-            android:theme="@style/main" />
+            />
         <activity android:name=".DeliciousfoodActivity">
             <intent-filter>
                 <action android:name="com.example.newpubliccomment_Delicious.ACTION_START" />

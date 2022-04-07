@@ -11,5 +11,8 @@
     <color name="news_bg">#F0F0F0</color>
     <color name="backgrount">#BEBEBE</color>
     <color name="news1">#FCFCFC</color>
+    
+    <color name="tab_bg">#FF7F00</color>
+    <color name="state">#FF0000</color>
 
 </resources>

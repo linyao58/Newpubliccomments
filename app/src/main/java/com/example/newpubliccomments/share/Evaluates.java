@@ -2,12 +2,13 @@ package com.example.newpubliccomments.share;
 
 import cn.bmob.v3.BmobObject;
 
-public class ShareMessage extends BmobObject {
+public class Evaluates extends BmobObject {
 
     private String photo;
     private String phone;
     private String avatar;
     private String message;
+    private String businessid;
 
     public String getPhoto() {
         return photo;
@@ -35,6 +36,13 @@ public class ShareMessage extends BmobObject {
     }
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getBusinessid() {
+        return businessid;
+    }
+    public void setBusinessid(String businessid) {
+        this.businessid = businessid;
     }
 
 }

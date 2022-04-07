@@ -191,6 +191,7 @@
             android:layout_gravity="center_horizontal">
 
             <LinearLayout
+                android:id="@+id/collection"
                 android:layout_width="70dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
@@ -332,6 +333,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/customer_service_layout"
                 android:layout_width="70dp"
                 android:layout_height="80dp"
                 android:orientation="vertical"

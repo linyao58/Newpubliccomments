@@ -10,9 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.newpubliccomments.databinding.ActivityXianshiOrderMainBinding
+import com.example.newpubliccomments.order.AllFragment
+import com.example.newpubliccomments.order.CompleteFragment
+import com.example.newpubliccomments.order.NoPaymentFragment
+import com.example.newpubliccomments.order.PaymentFragment
 import com.example.newpubliccomments.tool.StatusBar
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_xianshi_order_main.*
 
 class Fruitorder(val money:String, val imageId: Int, val zhuagntai: String,val aid : String,val bid : String,val pholo : String)
@@ -50,11 +59,14 @@ class FruitAdapterorder(val fruitList : ArrayList<Fruitorder>) :
 
 class XianshiOrderMainActivity : AppCompatActivity() {
 
+    private var binding: ActivityXianshiOrderMainBinding? = null
+
     private val fruitList = ArrayList<Fruitorder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_xianshi_order_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_xianshi_order_main)
 
         //        使状态栏变透明，使布局变成侵入式布局
         StatusBar().statusBarColor(this)
@@ -63,100 +75,81 @@ class XianshiOrderMainActivity : AppCompatActivity() {
 
         var xianpholo = intent.getStringExtra("setpholo")
 
+        binding?.viewpager?.adapter = object : FragmentStateAdapter(this){
+            override fun getItemCount(): Int {
+                return 4
+            }
+
+            override fun createFragment(position: Int): Fragment {
+                return getFragment(position)
+            }
+
+        }
+
+        TabLayoutMediator(binding?.tab!!, binding?.viewpager!!){
+            tab, position ->
+
+                    if (position == 0){
+                        tab.text = "全部"
+                    }else if (position == 1){
+                        tab.text = "未支付"
+                    }else if (position == 2){
+                        tab.text = "已支付"
+                    }else{
+                        tab.text = "已完成"
+                    }
+
+        }.attach()
+
         initFruits()
 
-        val layoutManager = LinearLayoutManager(this)
+//        val layoutManager = LinearLayoutManager(this)
+//
+//        recyclerViewxian.layoutManager = layoutManager
+//
+//        val adapter = FruitAdapterorder(fruitList)
+//
+//        recyclerViewxian.adapter = adapter
 
-        recyclerViewxian.layoutManager = layoutManager
-
-        val adapter = FruitAdapterorder(fruitList)
-
-        recyclerViewxian.adapter = adapter
+        binding?.DelBackxiaxian?.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
-    fun start(context: Context, gopholo: String){
+    fun start(context: Context, gopholo: String) {
         val intent = Intent(context, XianshiOrderMainActivity::class.java)
-        intent.putExtra("setpholo",gopholo)
+        intent.putExtra("setpholo", gopholo)
         context.startActivity(intent)
     }
 
     private fun initFruits() {
-        var c_id = ""
-        var b_id = ""
-        var b_name = ""
-        var c_name = ""
-        var c_moneyc = ""
+
         var xianpholo = intent.getStringExtra("setpholo").toString()
-        val dbHelper = MyDatabaseHelper(this, "Publiccomments.db",23)
-        val db = dbHelper.writableDatabase
-        val cursor = db.query("Orders",null,null,null,null,null,null)
-        if(cursor.moveToFirst()){
-            do {
-                val O_ph = cursor.getString(cursor.getColumnIndex("O_pholo"))
-                val O_states = cursor.getString(cursor.getColumnIndex("O_state"))
-                val c_ids = cursor.getInt(cursor.getColumnIndex("C_id"))
-                val b_ids = cursor.getInt(cursor.getColumnIndex("B_id"))
-                c_id = c_ids.toString()
-                b_id = b_ids.toString()
-                if (O_ph == xianpholo){
-
-                    val cursors = db.query("Business",null,null,null,null,null,null)
-                    if(cursors.moveToFirst()){
-                        do {
-
-
-                            val b_ids = cursors.getInt(cursors.getColumnIndex("id")).toString()
-
-                            if (b_ids == b_id){
-                                 b_name = cursors.getString(cursors.getColumnIndex("B_name"))
-                                Log.e("数据",b_name)
-
-                                val cursorshang = db.query("Commodity",null,null,null,null,null,null)
-                                if(cursorshang.moveToFirst()){
-                                    do {
-
-
-                                        val c_ids = cursorshang.getInt(cursorshang.getColumnIndex("id")).toString()
-
-                                        if (c_ids == c_id){
-                                            c_name = cursorshang.getString(cursorshang.getColumnIndex("C_name"))
-                                            c_moneyc = cursorshang.getString(cursorshang.getColumnIndex("C_profile"))
-                                            Log.e("数据是",c_name)
-                                            Log.e("数据只是",c_moneyc)
-                                            fruitList.add(Fruitorder(c_moneyc,R.drawable.naicha,O_states,b_name,c_name,O_ph))
-
-                                        }
-
-
-                                    }while (cursorshang.moveToNext())
-                                }
-
-                                cursorshang.close()
-
-                            }
-
-
-                        }while (cursors.moveToNext())
-                    }
-
-                    cursors.close()
-
-
-                }
-
-            }while (cursor.moveToNext())
-        }
-
-        cursor.close()
-
-
-        Del_backxiaxian.setOnClickListener {
-
-            onBackPressed()
-
-        }
-
 
     }
+
+    private fun getFragment(index: Int): Fragment{
+        var xianpholo = intent.getStringExtra("setpholo").toString()
+        return when(index){
+            0 -> {
+//                全部页面
+                AllFragment.newInstance(xianpholo)
+            }
+            1 -> {
+//                未支付页面
+                NoPaymentFragment.newInstance(xianpholo)
+            }
+            2 -> {
+//                已支付页面
+                PaymentFragment.newInstance(xianpholo)
+            }
+            else -> {
+//                已完成页面
+                CompleteFragment.newInstance()
+            }
+        }
+
+    }
+
 }

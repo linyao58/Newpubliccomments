@@ -65,7 +65,7 @@ class PasswordActivity : AppCompatActivity() {
 //                if (e == null) {
 //                    Log.i("bmob", "更新成功")
 //                } else {
-//                    Log.i("bmob", "更新失败：" + e.message + "," + e.errorCode)
+//                    Log.i("bmob", "更新失败：" + e.Messages + "," + e.errorCode)
 //                }
 //            }
 //        })

@@ -53,15 +53,15 @@ class VerificationCodeActivity : BaseActivity() {
                                 if (ex == null) {
                                     Toast.makeText(mContext, "新增数据成功：$objectId", Toast.LENGTH_LONG).show()
                                 } else {
-                                    Log.e("CREATE", "新增数据失败：" + ex.message)
+                                    Log.e("CREATE", "新增数据失败：" + ex.Messages)
                                 }
                             }
                         })
                     }
                 } else {
-                    Toast.makeText(mContext, ex.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, ex.Messages, Toast.LENGTH_LONG).show()
 
-                    ex.message?.let { Log.e("xianshi", it) }
+                    ex.Messages?.let { Log.e("xianshi", it) }
                 }
             }
 
@@ -84,7 +84,7 @@ class VerificationCodeActivity : BaseActivity() {
 
 
                 } else {
-                    Toast.makeText(mContext, "验证失败：$ex.message", Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, "验证失败：$ex.Messages", Toast.LENGTH_LONG).show()
                 }
             }
         })
@@ -100,7 +100,7 @@ class VerificationCodeActivity : BaseActivity() {
                 if (ex == null) {
                     Toast.makeText(mContext, "发送成功：$smsId", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(mContext, "发送成失败：$ex.message", Toast.LENGTH_LONG).show()
+                    Toast.makeText(mContext, "发送成失败：$ex.Messages", Toast.LENGTH_LONG).show()
                 }
             }
         })
