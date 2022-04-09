@@ -12,6 +12,7 @@ public class Order extends BmobObject {
     private String state;
     private String businessid;
     private String commodityid;
+    private String phone;
 
     public String getPrice() {
         return price;
@@ -67,6 +68,13 @@ public class Order extends BmobObject {
     }
     public void setCommodityid(String commodityid) {
         this.commodityid = commodityid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }

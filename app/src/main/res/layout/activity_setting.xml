@@ -74,11 +74,27 @@
                 android:gravity="center"/>
         </LinearLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/img_recy"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_margin="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <EditText
             android:id="@+id/edt_synopsis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:hint="听说，写笔记更容易被推上首页哦~"
             android:maxLines="10"
             android:textColor="#272727"
@@ -95,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="关联"
                 android:textSize="15sp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/settting_relation"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"

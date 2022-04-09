@@ -27,10 +27,13 @@ import com.bumptech.glide.Glide
 import com.example.newpubliccomments.NewMessage.Messages
 import com.example.newpubliccomments.business.Business
 import com.example.newpubliccomments.databinding.ActivitySynopsisBinding
+import com.example.newpubliccomments.location.SearchLocation
 import com.example.newpubliccomments.share.Evaluates
 import com.example.newpubliccomments.signregister.PublicMyUser
 import com.example.newpubliccomments.tool.StatusBar
 import de.hdodenhof.circleimageview.CircleImageView
+import io.rong.imkit.RongIM
+import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.activity_synopsis.*
 
 class FruitsMessage(val name:String, val avatar: String, val userid: String,val message: String)
@@ -103,10 +106,54 @@ class SynopsisActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
+
+        var businesId = ""
+
         Glide.with(this@SynopsisActivity).load(getpholos).into(binding?.userAvatar!!)
-        binding?.userName?.text = getName
+
+        var e_phone = ""
+        val eva = BmobQuery<Evaluates>()
+        eva.getObject(getsynoid, object : QueryListener<Evaluates>(){
+            override fun done(p0: Evaluates?, p1: BmobException?) {
+                if (p1 == null){
+                    if (p0 != null){
+                        e_phone = p0.phone
+                    }
+                }
+            }
+
+        })
+
+        binding?.fruitProfile?.setOnClickListener {
+            SearchLocation().addressStart(it.context, binding?.fruitProfile?.text?.toString()!!)
+        }
+
+        val buser = BmobQuery<PublicMyUser>()
+        buser.findObjects(object : FindListener<PublicMyUser>(){
+            override fun done(p0: MutableList<PublicMyUser>?, p1: BmobException?) {
+                if (p1 == null){
+                    if (p0 != null){
+
+                        p0.forEach {
+                            if (it.phone == e_phone){
+                                binding?.userName?.text = it.name
+                            }
+                        }
+
+                    }
+                }else{
+                    Toast.makeText(this@SynopsisActivity, "查询失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+
+
 
         binding?.recyclerView?.isNestedScrollingEnabled = false
+
+        var userPhone = ""
 
         val bmobQuery = BmobQuery<Evaluates>()
         bmobQuery.getObject(getsynoid, object : QueryListener<Evaluates>(){
@@ -115,6 +162,7 @@ class SynopsisActivity : AppCompatActivity() {
                     if (p0 != null){
                         Glide.with(this@SynopsisActivity).load(p0.photo).into(binding?.photo!!)
                         binding?.sytext?.text = p0.message
+                        userPhone = p0.phone
                         val busi = BmobQuery<Business>()
                         busi.getObject(p0.businessid, object : QueryListener<Business>(){
                             override fun done(business: Business?, p11: BmobException?) {
@@ -126,6 +174,7 @@ class SynopsisActivity : AppCompatActivity() {
                                         binding?.fruitProfile?.text = business.address
                                         binding?.rating?.rating = business.grade.toFloat()
                                         binding?.grade = business.grade
+                                        businesId = business.objectId
                                     }
                                 }else{
                                     Toast.makeText(this@SynopsisActivity, "查询失败", Toast.LENGTH_SHORT).show()
@@ -140,6 +189,48 @@ class SynopsisActivity : AppCompatActivity() {
             }
 
         })
+
+        binding?.im?.setOnClickListener {
+
+            if (getPhone.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+
+                val user = BmobQuery<PublicMyUser>()
+                user.findObjects(object : FindListener<PublicMyUser>(){
+                    override fun done(p0: MutableList<PublicMyUser>?, p1: BmobException?) {
+                        if (p1 == null){
+
+                            if (p0 != null){
+                                p0.forEach {
+                                    if (it.phone == userPhone){
+                                        RongIM.getInstance().startConversation(this@SynopsisActivity, Conversation.ConversationType.PRIVATE, it.rongid , it.name)
+                                    }
+                                }
+                            }
+
+                        }else{
+                            Toast.makeText(this@SynopsisActivity, "查询失败", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                })
+
+            }
+
+        }
+
+        binding?.business?.setOnClickListener {
+            var bundles = Bundle()
+            bundles.putString("gopholo",getpholos)
+            bundles.putString("data_id",businesId)
+
+            val intent = Intent(this, BusinessMainActivity::class.java)
+            intent.putExtras(bundles)
+            startActivity(intent)
+
+        }
 
         binding?.work?.setOnClickListener {
             if (getPhone.isEmpty()){

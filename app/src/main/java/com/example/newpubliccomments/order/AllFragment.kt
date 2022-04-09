@@ -151,8 +151,10 @@ class AllFragment: Fragment() {
                 if (p1 == null){
                     if (p0 != null){
 
-                        p0?.forEach {
-                            fruitListAll.add(FruitAll(it.commodityname, it.avatar, it.price, it.businessid, it.commodityid, pholo!!, it.state))
+                        p0.forEach {
+                            if (it.phone == pholo){
+                                fruitListAll.add(FruitAll(it.commodityname, it.avatar, it.price, it.businessid, it.commodityid, pholo!!, it.state))
+                            }
                         }
 
                         val layoutManager = LinearLayoutManager(requireContext())

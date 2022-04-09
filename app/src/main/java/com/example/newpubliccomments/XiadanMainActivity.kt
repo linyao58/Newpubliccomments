@@ -70,52 +70,59 @@ class XiadanMainActivity : AppCompatActivity() {
             var shangjiaids = bundle?.getString("shangjiaid").toString()
             var shangpings = bundle?.getString("shangping").toString()
 
-            var bundless = Bundle()
-            bundless.putString("gopholo",getpholos)
-            bundless.putString("shangjiaid",shangjiaids)
-            bundless.putString("shangping",shangpings)
+            if (getpholos.isEmpty() || getpholos == ""){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                var bundless = Bundle()
+                bundless.putString("gopholo",getpholos)
+                bundless.putString("shangjiaid",shangjiaids)
+                bundless.putString("shangping",shangpings)
 
-            val bmob = BmobQuery<Commodity>()
-            bmob.getObject(shangpings, object : QueryListener<Commodity>(){
-                override fun done(p0: Commodity?, p1: BmobException?) {
-                    if (p1 == null){
-                        if (p0 != null){
-                            val order = Order()
-                            order.avatar = p0.avatar
-                            order.businessname = p0.businessname
-                            order.commodityname = p0.commodityname
-                            order.price = p0.price
-                            order.number = "1"
+                val bmob = BmobQuery<Commodity>()
+                bmob.getObject(shangpings, object : QueryListener<Commodity>(){
+                    override fun done(p0: Commodity?, p1: BmobException?) {
+                        if (p1 == null){
+                            if (p0 != null){
+                                val order = Order()
+                                order.avatar = p0.avatar
+                                order.businessname = p0.businessname
+                                order.commodityname = p0.commodityname
+                                order.price = p0.price
+                                order.number = "1"
 //                            1:未支付 2：已支付 3：已完成
-                            order.state = "1"
-                            order.businessid = p0.businessid
-                            order.commodityid = p0.objectId
-                            order.save(object : SaveListener<String>(){
-                                override fun done(p0: String?, p1: BmobException?) {
-                                    if (p1 == null){
+                                order.state = "1"
+                                order.businessid = p0.businessid
+                                order.commodityid = p0.objectId
+                                order.phone = getpholos
+                                order.save(object : SaveListener<String>(){
+                                    override fun done(p0: String?, p1: BmobException?) {
+                                        if (p1 == null){
 
-                                        bundless?.putString("orderId", p0)
+                                            bundless?.putString("orderId", p0)
 
-                                        val intent = Intent(this@XiadanMainActivity,ZhifuMainActivity::class.java)
-                                        intent.putExtras(bundless)
-                                        startActivity(intent)
+                                            val intent = Intent(this@XiadanMainActivity,ZhifuMainActivity::class.java)
+                                            intent.putExtras(bundless)
+                                            startActivity(intent)
 
-                                        Toast.makeText(this@XiadanMainActivity, "下单成功", Toast.LENGTH_SHORT).show()
-                                    }else{
-                                        Toast.makeText(this@XiadanMainActivity, "下单失败", Toast.LENGTH_SHORT).show()
-                                        Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
+                                            Toast.makeText(this@XiadanMainActivity, "下单成功", Toast.LENGTH_SHORT).show()
+                                        }else{
+                                            Toast.makeText(this@XiadanMainActivity, "下单失败", Toast.LENGTH_SHORT).show()
+                                            Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
+                                        }
                                     }
-                                }
 
-                            })
+                                })
+                            }
+                        }else{
+                            Toast.makeText(this@XiadanMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
+                            Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
                         }
-                    }else{
-                        Toast.makeText(this@XiadanMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
-                        Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
                     }
-                }
 
-            })
+                })
+            }
+
 
         }
 

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.newpubliccomments.tool.StatusBar
 //import cn.bmob.v3.Bmob
 //import cn.bmob.v3.BmobQuery
@@ -43,6 +44,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 //        使状态栏变透明，使布局变成侵入式布局
         StatusBar().statusBarColor(this)
         StatusBar().statusBarTextColor(this, false)
+
+//        Glide.with(this).asGif().load("https://newpubliccomments-guangzhou.oss-cn-beijing.aliyuncs.com/login.gif").into(gif)
+//        gif.alpha = 0.8f
+//        gif2.alpha = 0.8f
+//        Glide.with(this).asGif().load("https://newpubliccomments-guangzhou.oss-cn-beijing.aliyuncs.com/login.gif").into(gif2)
 
         login_fanhui.setOnClickListener {
             val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")

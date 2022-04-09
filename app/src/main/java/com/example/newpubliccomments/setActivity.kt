@@ -17,12 +17,23 @@ class setActivity : AppCompatActivity() {
         StatusBar().statusBarColor(this)
         StatusBar().statusBarTextColor(this, true)
 
+
         var set_pholo = intent.getStringExtra("setpholo").toString()
         set_back.setOnClickListener {
-            val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
-            intent.putExtra("gopholo",set_pholo)
-            startActivity(intent)
+            onBackPressed()
         }
+
+        geren.setOnClickListener {
+            if (set_pholo == "" || set_pholo.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, PeploActivity::class.java)
+                intent.putExtra("phone",set_pholo)
+                startActivity(intent)
+            }
+        }
+
 
         if (set_pholo == ""){
             set_degnlu.setOnClickListener {

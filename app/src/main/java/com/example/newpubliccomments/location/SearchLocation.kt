@@ -22,6 +22,7 @@ import com.example.newpubliccomments.BaseActivity
 import com.example.newpubliccomments.Homepage
 import com.example.newpubliccomments.R
 import com.example.newpubliccomments.databinding.ActivitySearchLocationBinding
+import com.example.newpubliccomments.tool.StatusBar
 
 class SearchLocation: BaseActivity() {
 
@@ -31,6 +32,13 @@ class SearchLocation: BaseActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_location)
+
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+//        设置状态栏图标颜色
+        StatusBar().statusBarTextColor(this, true)
+
+        val content = intent.getStringExtra("content").toString()
 
         var mSuggestionSearch = SuggestionSearch.newInstance()
 
@@ -88,9 +96,16 @@ class SearchLocation: BaseActivity() {
         mSuggestionSearch.setOnGetSuggestionResultListener(listener)
 
 
-        var sjian : Editable? = binding?.edt?.text
+        if (content.isNotEmpty()){
+
+            binding?.data = content
+
+        }
+
+
 
         binding?.search?.setOnClickListener {
+            var sjian : Editable? = binding?.edt?.text
             mSuggestionSearch.requestSuggestion(
                 SuggestionSearchOption()
                     .city("广州")
@@ -101,6 +116,7 @@ class SearchLocation: BaseActivity() {
 
             mSuggestionSearch.setOnGetSuggestionResultListener(listener)
             binding?.sugList?.visibility = View.VISIBLE
+
         }
 
 
@@ -128,8 +144,15 @@ class SearchLocation: BaseActivity() {
 
     fun start(context: Context){
         val intent = Intent(context, SearchLocation::class.java)
+        intent.putExtra("content", "广东东软学院")
         context.startActivity(intent)
 
+    }
+
+    fun addressStart(context: Context, content: String){
+        val intent = Intent(context, SearchLocation::class.java)
+        intent.putExtra("content", content)
+        context.startActivity(intent)
     }
 
 }

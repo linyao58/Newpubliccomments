@@ -101,7 +101,8 @@
         <activity android:name=".VerificationCodeActivity" />
         <activity android:name=".PasswordActivity" />
         <activity android:name=".PholoActivity" />
-        <activity android:name=".Homepage">
+        <activity android:name=".Homepage"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="com.example.newpubliccomment_Homepage.ACTION_START" />
 

@@ -8,23 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <ImageView
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/kaishi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="开始位置:"
+            android:textColor="@color/colorAccent"
             android:layout_marginStart="5dp"
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintTop_toTopOf="@id/back"
-            app:layout_constraintBottom_toBottomOf="@id/back"/>
+            app:layout_constraintBottom_toBottomOf="@id/kai_edt" />
 
         <EditText
             android:id="@+id/kai_edt"
@@ -41,9 +43,12 @@
             android:layout_height="wrap_content"
             android:text="目标位置:"
             android:layout_marginTop="20dp"
+            android:textColor="@color/state"
             app:layout_constraintStart_toStartOf="@id/kaishi"
             app:layout_constraintEnd_toEndOf="@id/kaishi"
-            app:layout_constraintTop_toBottomOf="@id/kaishi"/>
+            app:layout_constraintTop_toBottomOf="@id/kaishi"
+            app:layout_constraintTop_toTopOf="@id/target_edt"
+            app:layout_constraintBottom_toBottomOf="@id/target_edt"/>
 
         <EditText
             android:id="@+id/target_edt"
@@ -57,7 +62,12 @@
             android:id="@+id/dianji"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="路线"
+            android:text="寻找路线"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/settting_relation"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

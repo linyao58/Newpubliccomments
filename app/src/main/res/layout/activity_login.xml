@@ -18,6 +18,22 @@
 <!--        tools:context=".LoginActivity"-->
 <!--        android:background="#272727">-->
 
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/gif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/gif2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gif"/>
+
 
         <ImageView
             android:id="@+id/login_fanhui"

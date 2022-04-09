@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.example.newpubliccomments.business.Business
 import com.example.newpubliccomments.commodity.Commodity
 import com.example.newpubliccomments.databinding.ActivityBusinessMainBinding
+import com.example.newpubliccomments.location.SearchLocation
 import com.example.newpubliccomments.tool.StatusBar
 import kotlinx.android.synthetic.main.activity_business_main.*
 import kotlinx.android.synthetic.main.activity_deliciousfood.*
@@ -214,6 +215,10 @@ class BusinessMainActivity : AppCompatActivity() {
 
             })
 
+        }
+
+        binding?.address?.setOnClickListener {
+            SearchLocation().addressStart(it.context, binding?.address?.text?.toString()!!)
         }
 
     }

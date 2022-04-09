@@ -149,7 +149,7 @@ class PaymentFragment: Fragment() {
                     if (p0 != null){
 
                         p0?.forEach {
-                            if (it.state == "2"){
+                            if (it.state == "2" && it.phone == pholo){
                                 fruitListPayment.add(FruitPayment(it.commodityname, it.avatar, it.price, it.businessid, it.commodityid, pholo!!, it.state))
                             }
                         }

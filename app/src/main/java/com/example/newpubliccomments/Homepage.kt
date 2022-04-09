@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -184,6 +185,49 @@ class FruitAdapterSetting(val fruitList: List<FruitSetting>) :
 }
 
 
+class FruitsImg(val uri: String)
+
+class FruitAdaptersImg(val fruitList : List<FruitsImg>) :
+    RecyclerView.Adapter<FruitAdaptersImg.ViewHolder>(){
+
+    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+        val image : ImageView = view.findViewById(R.id.img)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FruitAdaptersImg.ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.view_item_img,parent,false)
+        val viewHolder = ViewHolder(view)
+
+        viewHolder.itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            val fruit = fruitList[position]
+
+
+
+        }
+
+        return viewHolder
+    }
+
+    @SuppressLint("CheckResult")
+    override fun onBindViewHolder(holder: FruitAdaptersImg.ViewHolder, position: Int) {
+        val fruit = fruitList[position]
+
+//        glide自带实现图片圆角方法
+//        val roundedCorners = RoundedCorners(10)
+//        val options = RequestOptions.bitmapTransform(roundedCorners)
+
+        holder.image.setImageURI(Uri.parse(fruit.uri))
+
+}
+
+    override fun getItemCount() = fruitList.size
+
+
+}
+
+
 class home(intent: Intent) : Fragment(){
 
     private var binding: FragmentHomeBinding? = null
@@ -337,6 +381,8 @@ class setting(intent: Intent) : Fragment() {
 
     private val fruitList = ArrayList<FruitSetting>()
 
+    private val fruitListsImg = ArrayList<FruitsImg>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -429,6 +475,22 @@ class setting(intent: Intent) : Fragment() {
                         photos: java.util.ArrayList<Photo>?,
                         isOriginal: Boolean
                     ) {
+
+                        if (photos != null){
+                            photos.forEach {
+                                fruitListsImg.add(FruitsImg(it.uri.toString()))
+                            }
+                        }
+
+                        val layoutManager = GridLayoutManager(context,3)
+                        //线性布局
+                        img_recy?.layoutManager = layoutManager
+                        //完成适配器配置
+                        val adapter = FruitAdaptersImg(fruitListsImg)
+                        img_recy?.adapter = adapter
+
+                        img_recy.visibility = View.VISIBLE
+
                         Log.e("TAG", "onResult: ${photos?.get(0)?.uri}")
                     }
 
@@ -443,6 +505,7 @@ class setting(intent: Intent) : Fragment() {
 //        return view
         return settingBinding?.root
     }
+
 
     private fun initFruits(){
 
@@ -528,11 +591,17 @@ class accont(intent: Intent) : Fragment(){
 
         dingdanshu.setOnClickListener {
 
-            XianshiOrderMainActivity().start(it.context, gopholo)
+//            XianshiOrderMainActivity().start(it.context, gopholo)
+            if (gopholo == "" || gopholo.isEmpty()){
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                XianshiOrderMainActivity().start(it.context, gopholo)
+            }
 
         }
 
-        if (gopholo == ""){
+        if (gopholo == "" || gopholo.isEmpty()){
             var click : TextView = view.findViewById(R.id.but_click) as TextView
             var zushi : TextView = view.findViewById(R.id.zushi) as TextView
             var accont_tou : de.hdodenhof.circleimageview.CircleImageView = view.findViewById(R.id.accont_touxiang) as de.hdodenhof.circleimageview.CircleImageView
@@ -577,7 +646,9 @@ class accont(intent: Intent) : Fragment(){
             })
 
             os.setOnClickListener {
-                val intent = Intent("com.example.newpubliccomment_Peplo.ACTION_START")
+//                val intent = Intent("com.example.newpubliccomment_Peplo.ACTION_START")
+                val intent = Intent(requireContext(), PeploActivity::class.java)
+                intent.putExtra("phone", gopholo)
                 startActivity(intent)
             }
         }
@@ -590,7 +661,12 @@ class accont(intent: Intent) : Fragment(){
 
         collection.setOnClickListener {
 
-            CollectionActivity().start(it.context, gopholo)
+            if (gopholo == "" || gopholo.isEmpty()){
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                CollectionActivity().start(it.context, gopholo)
+            }
 
         }
 
@@ -611,6 +687,7 @@ class Homepage : BaseActivity() {
     //请求状态码
     val REQUEST_PERMISSION_CODE = 1
 
+    var firstTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -888,6 +965,28 @@ class Homepage : BaseActivity() {
 //
 //        action = false
 
+    }
+
+//    退出程序
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+
+        when (keyCode){
+
+            KeyEvent.KEYCODE_BACK -> {
+                val secondTime = System.currentTimeMillis()
+                if (secondTime - firstTime > 2000){
+                    Toast.makeText(this, "再按一次退出大众点评", Toast.LENGTH_SHORT).show()
+                    firstTime = secondTime
+                    return true
+                }else{
+                    finishAffinity()
+                    System.exit(0)
+                }
+            }
+
+        }
+
+        return super.onKeyUp(keyCode, event)
     }
 
     private fun fragaccont(fragment: Fragment) {

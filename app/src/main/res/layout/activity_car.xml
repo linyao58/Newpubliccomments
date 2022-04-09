@@ -12,6 +12,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="美食"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/loacation_ditu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -20,6 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="医院"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/loacation_ditu"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/fool"/>
 
@@ -28,14 +34,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="景点"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/loacation_ditu"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/hospital"/>
 
         <Button
             android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sousuo"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ditusea"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -50,6 +60,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="路线"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/loacation_ditu"
             android:layout_marginBottom="15dp"
             android:layout_marginEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
