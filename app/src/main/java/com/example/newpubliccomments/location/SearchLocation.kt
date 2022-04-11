@@ -84,7 +84,8 @@ class SearchLocation: BaseActivity() {
                     Log.d("纬度",ssweidu.toString())
                     Log.d("经度",ssjindu.toString())
                     if (ssweidu != null && ssjindu != null){
-                        Homepage().start(this, 2, ssweidu.toDouble(), ssjindu.toDouble())
+                        var phone = intent.getStringExtra("phone")
+                        Homepage().start(this, 2, ssweidu.toDouble(), ssjindu.toDouble(), phone!!)
                     }
 
                 }
@@ -142,16 +143,18 @@ class SearchLocation: BaseActivity() {
         binding?.map?.onDestroy()
     }
 
-    fun start(context: Context){
+    fun start(context: Context, phone: String){
         val intent = Intent(context, SearchLocation::class.java)
         intent.putExtra("content", "广东东软学院")
+        intent.putExtra("phone", phone)
         context.startActivity(intent)
 
     }
 
-    fun addressStart(context: Context, content: String){
+    fun addressStart(context: Context, content: String, phone: String){
         val intent = Intent(context, SearchLocation::class.java)
         intent.putExtra("content", content)
+        intent.putExtra("phone", phone)
         context.startActivity(intent)
     }
 

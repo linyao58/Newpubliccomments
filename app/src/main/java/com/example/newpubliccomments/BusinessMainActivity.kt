@@ -21,6 +21,7 @@ import cn.bmob.v3.listener.UpdateListener
 import com.bumptech.glide.Glide
 import com.example.newpubliccomments.business.Business
 import com.example.newpubliccomments.commodity.Commodity
+import com.example.newpubliccomments.complaint.ComplaintActivity
 import com.example.newpubliccomments.databinding.ActivityBusinessMainBinding
 import com.example.newpubliccomments.location.SearchLocation
 import com.example.newpubliccomments.tool.StatusBar
@@ -172,7 +173,12 @@ class BusinessMainActivity : AppCompatActivity() {
         }
 
         binding?.all?.setOnClickListener {
-            Toast.makeText(this, "全部", Toast.LENGTH_SHORT).show()
+            if (getpholos.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                ComplaintActivity().start(it.context, getdata_id)
+            }
         }
 
         binding?.collection?.setOnClickListener {
@@ -218,7 +224,8 @@ class BusinessMainActivity : AppCompatActivity() {
         }
 
         binding?.address?.setOnClickListener {
-            SearchLocation().addressStart(it.context, binding?.address?.text?.toString()!!)
+            var getpholos = bundle?.getString("gopholo").toString()
+            SearchLocation().addressStart(it.context, binding?.address?.text?.toString()!!, getpholos)
         }
 
     }

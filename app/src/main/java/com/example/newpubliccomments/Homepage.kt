@@ -784,7 +784,7 @@ class Homepage : BaseActivity() {
 
 //            fragChess(car())
 
-            fragChess(LocationFragment.newInstance())
+            fragChess(LocationFragment.newInstance(gopholo))
 
         }
 
@@ -837,7 +837,7 @@ class Homepage : BaseActivity() {
             text4.setTextColor(Color.parseColor("#d81e06"))
             text5.setTextColor(Color.parseColor("#8E8E8E"))
 
-            if (gopholo != ""){
+            if (gopholo.isNotEmpty()){
 //                fragnews(news())
 //              进入消息页面
 
@@ -887,7 +887,7 @@ class Homepage : BaseActivity() {
                 RongIM.getInstance().refreshUserInfoCache(userInfo)
 
 
-                fragnews(ConverFragment.newInstance())
+                fragnews(ConverFragment.newInstance(gopholo))
                 
             }else{
                 val intent = Intent(this,LoginActivity::class.java)
@@ -1042,11 +1042,12 @@ class Homepage : BaseActivity() {
 
 
 
-    fun start(context: Context, type: Int, weidu: Double, jindu: Double){
+    fun start(context: Context, type: Int, weidu: Double, jindu: Double, phone: String){
         val intent = Intent(context, Homepage::class.java)
             intent.putExtra("type", type)
             intent.putExtra("weidu", weidu)
             intent.putExtra("jindu", jindu)
+            intent.putExtra("gopholo", phone)
         context.startActivity(intent)
     }
 

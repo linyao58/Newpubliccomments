@@ -33,14 +33,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
+            <TextView
                 android:id="@+id/all"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/gengduo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:text="投诉"
+                android:textSize="16sp"
+                android:textColor="@color/tab_bg"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/collection"
@@ -48,8 +51,8 @@
                 android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
                 android:src="@{type == true ? @drawable/sc1 : @drawable/sc}"
-                app:layout_constraintTop_toTopOf="@id/all"
-                app:layout_constraintBottom_toBottomOf="@id/all"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/all"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

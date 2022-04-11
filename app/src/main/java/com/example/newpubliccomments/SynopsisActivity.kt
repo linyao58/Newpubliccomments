@@ -126,7 +126,7 @@ class SynopsisActivity : AppCompatActivity() {
         })
 
         binding?.fruitProfile?.setOnClickListener {
-            SearchLocation().addressStart(it.context, binding?.fruitProfile?.text?.toString()!!)
+            SearchLocation().addressStart(it.context, binding?.fruitProfile?.text?.toString()!!, getPhone)
         }
 
         val buser = BmobQuery<PublicMyUser>()

@@ -84,10 +84,11 @@ class LocationFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance(): LocationFragment {
+        fun newInstance(phone: String): LocationFragment {
             val args = Bundle()
 
             val fragment = LocationFragment()
+            args.putString("phone",phone)
             fragment.arguments = args
             return fragment
         }
@@ -131,7 +132,10 @@ class LocationFragment: Fragment() {
         placeLocation()
 
         binding?.search?.setOnClickListener {
-            SearchLocation().start(it.context)
+
+            var phone = arguments?.getString("phone")
+
+            SearchLocation().start(it.context, phone!!)
 
 //            var point = LatLng(23.143150, 113.02954)
 //            var mMapStatus = MapStatus.Builder()

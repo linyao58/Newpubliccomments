@@ -131,7 +131,7 @@ class DeliciousfoodActivity : BaseActivity() {
         }
 
         binding?.location?.setOnClickListener {
-            Homepage().start(it.context, 3, 0.00, 0.00)
+            Homepage().start(it.context, 3, 0.00, 0.00, gopholo)
         }
 
         initFruits()

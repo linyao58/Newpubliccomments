@@ -84,10 +84,11 @@ class ConverFragment : Fragment() {
     private val fruitLists = ArrayList<FruitsRong>()
 
     companion object {
-        fun newInstance(): ConverFragment {
+        fun newInstance(phone: String): ConverFragment {
             val args = Bundle()
 
             val fragment = ConverFragment()
+            args.putString("phone", phone)
             fragment.arguments = args
             return fragment
         }
@@ -105,6 +106,7 @@ class ConverFragment : Fragment() {
 //            RongIM.getInstance().startConversation(requireContext(), Conversation.ConversationType.PRIVATE, "100", "官方客服")
 //        }
 
+        val phone = arguments?.getString("phone")
 
         val bmobQuery = BmobQuery<PublicMyUser>()
         bmobQuery.findObjects(object : FindListener<PublicMyUser>(){
@@ -112,7 +114,11 @@ class ConverFragment : Fragment() {
                 if (p1 == null){
                     if (p0 != null){
                         p0.forEach {
-                            fruitLists.add(FruitsRong(it.name, it.avatar, it.rongid))
+                            if (it.phone == phone){
+                                fruitLists.add(FruitsRong("文件管理助手", "https://newpubliccomments-guangzhou.oss-cn-beijing.aliyuncs.com/weixin.jpeg", it.rongid))
+                            }else{
+                                fruitLists.add(FruitsRong(it.name, it.avatar, it.rongid))
+                            }
                         }
 
                         binding?.data = p0.size.toString()

@@ -96,7 +96,7 @@ class FruitAdapterAll(val fruitList: ArrayList<FruitAll>) :
         val fruit = fruitList[position]
         Glide.with(holder.itemView.context).load(fruit.image).into(holder.fruitImage)
         holder.fruitName.text = fruit.name
-        holder.fruitmoney.text = fruit.money
+        holder.fruitmoney.text = "￥${fruit.money}"
 
         if (fruit.state == "1"){
             holder.state.text = "未支付"
