@@ -96,5 +96,7 @@ dependencies {
 
     implementation 'com.aliyun.dpa:oss-android-sdk:2.9.11'
 
+    implementation 'com.google.zxing:core:3.3.3'
+
 
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobQuery
@@ -20,7 +21,9 @@ import com.example.newpubliccomments.OrderMainActivity
 import com.example.newpubliccomments.R
 import com.example.newpubliccomments.databinding.FragmentAllBinding
 
-class FruitPayment(val name:String, val image: String, val money: String,val aid : String,val bid : String,val pholo : String, val state: String)
+class FruitPayment(val name:String, val image: String, val money: String,val aid : String,val bid : String,val pholo : String, val state: String, val fragmentManager: FragmentManager)
+
+private var binding: FragmentAllBinding? = null
 
 class FruitAdapterPayment(val fruitList: ArrayList<FruitPayment>) :
     RecyclerView.Adapter<FruitAdapterPayment.ViewHolder>(){
@@ -41,24 +44,29 @@ class FruitAdapterPayment(val fruitList: ArrayList<FruitPayment>) :
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             val fruit = fruitList[position]
-
-            val f_id = fruit.aid.toString()
-            val f_Cid = fruit.bid.toString()
+//
+//            val f_id = fruit.aid.toString()
+//            val f_Cid = fruit.bid.toString()
             val f_pholo = fruit.pholo
-            var bundle = Bundle()
-            bundle.putString("shangjiaid",f_id)
-            bundle.putString("shangping",f_Cid)
-            bundle.putString("gopholo",f_pholo)
-            //获取到该好友的id
-            //val c_id = fruit.aid
-            //跳转到聊天页面
-            val intent = Intent(parent.context, OrderMainActivity::class.java)
+            val name = fruit.name
+            val image = fruit.image
+//            var bundle = Bundle()
+//            bundle.putString("shangjiaid",f_id)
+//            bundle.putString("shangping",f_Cid)
+//            bundle.putString("gopholo",f_pholo)
+//            //获取到该好友的id
+//            //val c_id = fruit.aid
+//            //跳转到聊天页面
+//            val intent = Intent(parent.context, OrderMainActivity::class.java)
+//
+//            intent.putExtras(bundle)
+//            //intent.putExtra("data_id", f_id)
+//            //把获取到该好友的id传输到聊天页面
+//            //intent.putExtra("chat_data_id", c_id)
+//            parent.context.startActivity(intent)
 
-            intent.putExtras(bundle)
-            //intent.putExtra("data_id", f_id)
-            //把获取到该好友的id传输到聊天页面
-            //intent.putExtra("chat_data_id", c_id)
-            parent.context.startActivity(intent)
+            dialogFragment.newInstance(f_pholo, name, image).show(fruit.fragmentManager, "")
+
         }
 
         //点击头像
@@ -66,24 +74,29 @@ class FruitAdapterPayment(val fruitList: ArrayList<FruitPayment>) :
             val position = viewHolder.adapterPosition
             val fruit = fruitList[position]
 
-            val f_id = fruit.aid.toString()
-            val f_Cid = fruit.bid.toString()
+//            val f_id = fruit.aid.toString()
+//            val f_Cid = fruit.bid.toString()
             val f_pholo = fruit.pholo
-            var bundle = Bundle()
-            bundle.putString("shangjiaid",f_id)
-            bundle.putString("shangping",f_Cid)
-            bundle.putString("gopholo",f_pholo)
-            //获取到该好友的id
-            //var send_id = fruit.aid
-            //跳转到好友信息页面
-            val intent = Intent(parent.context, OrderMainActivity::class.java)
+            val name = fruit.name
+            val image = fruit.image
+//            var bundle = Bundle()
+//            bundle.putString("shangjiaid",f_id)
+//            bundle.putString("shangping",f_Cid)
+//            bundle.putString("gopholo",f_pholo)
+//            //获取到该好友的id
+//            //var send_id = fruit.aid
+//            //跳转到好友信息页面
+//            val intent = Intent(parent.context, OrderMainActivity::class.java)
+//
+//            intent.putExtras(bundle)
+//
+//            //intent.putExtra("data_id", f_id)
+//            //把该好友的id传输到好友信息页面
+//            //intent.putExtra("touxiang_data", send_id)
+//            parent.context.startActivity(intent)
 
-            intent.putExtras(bundle)
+            dialogFragment.newInstance(f_pholo, name, image).show(fruit.fragmentManager, "")
 
-            //intent.putExtra("data_id", f_id)
-            //把该好友的id传输到好友信息页面
-            //intent.putExtra("touxiang_data", send_id)
-            parent.context.startActivity(intent)
         }
 
         return viewHolder
@@ -150,7 +163,7 @@ class PaymentFragment: Fragment() {
 
                         p0?.forEach {
                             if (it.state == "2" && it.phone == pholo){
-                                fruitListPayment.add(FruitPayment(it.commodityname, it.avatar, it.price, it.businessid, it.commodityid, pholo!!, it.state))
+                                fruitListPayment.add(FruitPayment(it.commodityname, it.avatar, it.price, it.businessid, it.commodityid, pholo!!, it.state, childFragmentManager))
                             }
                         }
 
