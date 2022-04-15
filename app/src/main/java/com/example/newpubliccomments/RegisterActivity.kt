@@ -23,8 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         StatusBar().statusBarTextColor(this, true)
 
         register_fanhui.setOnClickListener {
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
         userzuces.setOnClickListener {

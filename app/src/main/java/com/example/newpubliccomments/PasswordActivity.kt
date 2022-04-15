@@ -92,8 +92,7 @@ class PasswordActivity : AppCompatActivity() {
         val xianshipholo : TextView = findViewById(R.id.textpholos)
         xianshipholo.text = getpholos
         img_backs.setOnClickListener {
-            val intent = Intent(this, PholoActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
         but_nexttow.setOnClickListener {
             //updateOne(objid)

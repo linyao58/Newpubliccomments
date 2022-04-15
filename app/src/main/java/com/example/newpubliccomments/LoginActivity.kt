@@ -51,8 +51,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 //        Glide.with(this).asGif().load("https://newpubliccomments-guangzhou.oss-cn-beijing.aliyuncs.com/login.gif").into(gif2)
 
         login_fanhui.setOnClickListener {
-            val intent = Intent("com.example.newpubliccomment_Homepage.ACTION_START")
-            startActivity(intent)
+            onBackPressed()
         }
 
         denglu.setOnClickListener {

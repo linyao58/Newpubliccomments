@@ -22,6 +22,7 @@ import com.example.newpubliccomments.R
 import com.example.newpubliccomments.databinding.ActivityRouteBinding
 import com.example.newpubliccomments.location.overlayutil.BikingRouteOverlay
 import com.example.newpubliccomments.location.overlayutil.WalkingRouteOverlay
+import com.example.newpubliccomments.tool.StatusBar
 
 class RouteActivty: BaseActivity() {
 
@@ -34,6 +35,11 @@ class RouteActivty: BaseActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_route)
+
+        //        使状态栏变透明，使布局变成侵入式布局
+        StatusBar().statusBarColor(this)
+//        设置状态栏图标颜色
+        StatusBar().statusBarTextColor(this, true)
 
         binding?.back?.setOnClickListener {
             onBackPressed()

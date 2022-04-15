@@ -69,8 +69,7 @@ class PholoActivity : AppCompatActivity() {
         }
 
         img_back.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
         but_next.setOnClickListener {

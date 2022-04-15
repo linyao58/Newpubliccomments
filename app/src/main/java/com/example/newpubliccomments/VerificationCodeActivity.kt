@@ -120,8 +120,7 @@ class VerificationCodeActivity : BaseActivity() {
         xianshipholos.text = getpholos
         yanzhens = edtyan.text.toString()
         img_backss.setOnClickListener {
-            val intent = Intent(this, PholoActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
         huoquyan.setOnClickListener {
