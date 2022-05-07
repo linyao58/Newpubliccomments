@@ -975,7 +975,7 @@ class Homepage : BaseActivity() {
             KeyEvent.KEYCODE_BACK -> {
                 val secondTime = System.currentTimeMillis()
                 if (secondTime - firstTime > 2000){
-                    Toast.makeText(this, "再按一次退出大众点评", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "再按一次退出美食点评", Toast.LENGTH_SHORT).show()
                     firstTime = secondTime
                     return true
                 }else{

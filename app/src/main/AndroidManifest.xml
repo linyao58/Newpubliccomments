@@ -34,7 +34,7 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/yjtp"
-        android:label="大众点评"
+        android:label="美食点评"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

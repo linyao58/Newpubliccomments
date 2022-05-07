@@ -23,6 +23,7 @@ import com.example.newpubliccomments.order.PaymentFragment
 import com.example.newpubliccomments.tool.StatusBar
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_xianshi_order_main.*
+import java.util.*
 
 class Fruitorder(val money:String, val imageId: Int, val zhuagntai: String,val aid : String,val bid : String,val pholo : String)
 

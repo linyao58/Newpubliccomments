@@ -48,7 +48,6 @@ class LocationFragment: Fragment() {
 
             var point = LatLng(location.latitude.toString().toDouble(), location.longitude.toString().toDouble())
 
-
             var mMapStatus = MapStatus.Builder()
                 .target(point)
                 .zoom(18F)

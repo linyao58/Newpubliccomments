@@ -12,7 +12,6 @@ public class Business extends BmobObject {
     private String introduce;
     private Boolean collection;
 
-
     public String getLicense() {
         return license;
     }

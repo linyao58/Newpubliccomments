@@ -151,11 +151,14 @@ class BusinessMainActivity : AppCompatActivity() {
             override fun done(p0: Business?, p1: BmobException?) {
                 if (p1 == null){
                     if (p0 != null){
+                        if (getpholos.isEmpty()){
+                            binding?.type = false
+                        }
                         Glide.with(this@BusinessMainActivity).load(p0.bavatar).into(binding?.avatar!!)
                         binding?.biaoti?.text = p0.title
                         binding?.jianj?.text = p0.introduce
-                        binding?.type = p0.collection
                         binding?.address?.text = p0.address
+                        binding?.type = p0.collection
                     }
                 }else{
                     Toast.makeText(this@BusinessMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
@@ -164,6 +167,28 @@ class BusinessMainActivity : AppCompatActivity() {
             }
 
         })
+
+//        val Collection = BmobQuery<Collection>()
+//        Collection.findObjects(object : FindListener<Collection>(){
+//            override fun done(p0: MutableList<Collection>?, p1: BmobException?) {
+//                if (p1 == null){
+//                    p0?.forEach {
+//                        if (it.businessid == getdata_id && it.phone == getpholos){
+//                            if (it.Collection){
+//                                binding?.type = true
+//                            }else{
+//                                binding?.type = false
+//                            }
+//                        }else{
+//                            binding?.type = false
+//                        }
+//                    }
+//                }else{
+//                    Toast.makeText(this@BusinessMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//        })
 
         initFruits()
 
@@ -183,43 +208,121 @@ class BusinessMainActivity : AppCompatActivity() {
 
         binding?.collection?.setOnClickListener {
 
-            var getdata_id = bundle?.getString("data_id").toString()
+            if (getpholos.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+//                var getdata_id = bundle?.getString("data_id").toString()
+//
+//                val bmobQuery = BmobQuery<com.example.newpubliccomments.Collection.Collection>()
+//                bmobQuery.findObjects(object : FindListener<com.example.newpubliccomments.Collection.Collection>(){
+//                    override fun done(p0: MutableList<Collection>?, p1: BmobException?) {
+//                        if (p1 == null){
+//                            if (p0 == null){
+//                                val colle = com.example.newpubliccomments.Collection.Collection()
+//                                colle.phone = getpholos
+//                                colle.Collection = true
+//                                colle.businessid = getdata_id
+//                                binding?.type = true
+//                                colle.save(object : SaveListener<String>(){
+//                                    override fun done(p0: String?, p1: BmobException?) {
+//                                        if (p1 == null){
+//                                            Toast.makeText(this@BusinessMainActivity, "收藏成功", Toast.LENGTH_SHORT).show()
+//                                        }else{
+//                                            Toast.makeText(this@BusinessMainActivity, "收藏失败", Toast.LENGTH_SHORT).show()
+//                                        }
+//                                    }
+//
+//                                })
+//                            }else{
+//                                p0.forEach {
+//                                    if (it.businessid == getdata_id && it.phone == getpholos){
+//                                        val colle = com.example.newpubliccomments.Collection.Collection()
+//                                        if (it.Collection){
+//                                            colle.Collection = false
+//                                            binding?.type = false
+//                                            Toast.makeText(this@BusinessMainActivity, "取消收藏", Toast.LENGTH_SHORT).show()
+//                                        }else{
+//                                            colle.Collection = true
+//                                            binding?.type = true
+//                                            Toast.makeText(this@BusinessMainActivity, "收藏成功", Toast.LENGTH_SHORT).show()
+//                                        }
+//
+//                                        colle.update(it.objectId, object : UpdateListener(){
+//                                            override fun done(e: BmobException?) {
+//                                                if (e == null){
+//                                                    Log.e("TAG", "done123456789: 修改成功")
+//                                                }else{
+//                                                    Log.e("TAG", "done123456789: 修改失败")
+//                                                 }
+//                                            }
+//
+//                                        })
+//
+//                                    }else {
+//                                        val colles = com.example.newpubliccomments.Collection.Collection()
+//                                        colles.phone = getpholos
+//                                        colles.Collection = true
+//                                        colles.businessid = getdata_id
+//                                        binding?.type = true
+//                                        colles.save(object : SaveListener<String>(){
+//                                            override fun done(p0: String?, p1: BmobException?) {
+//                                                if (p1 == null){
+//                                                    Toast.makeText(this@BusinessMainActivity, "收藏成功", Toast.LENGTH_SHORT).show()
+//                                                }else{
+//                                                    Toast.makeText(this@BusinessMainActivity, "收藏失败", Toast.LENGTH_SHORT).show()
+//                                                }
+//                                            }
+//
+//                                        })
+//                                    }
+//                                }
+//                            }
+//                        }else{
+//                            Toast.makeText(this@BusinessMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//
+//                })
 
-            val bmobQuery = BmobQuery<Business>()
-            bmobQuery.getObject(getdata_id, object : QueryListener<Business>(){
-                override fun done(p0: Business?, p1: BmobException?) {
-                    if (p1 == null){
-                        if (p0 != null){
-                            val business = Business()
-                            if (p0.collection){
-                                business.collection = false
-                                binding?.type = false
-                                Toast.makeText(this@BusinessMainActivity, "取消收藏", Toast.LENGTH_SHORT).show()
-                            }else{
-                                business.collection = true
-                                binding?.type = true
-                                Toast.makeText(this@BusinessMainActivity, "已收藏", Toast.LENGTH_SHORT).show()
-                            }
-
-                            business.update(getdata_id, object : UpdateListener(){
-                                override fun done(e: BmobException?) {
-                                    if (e == null){
-                                        Log.e("TAG", "done123456789: 修改成功")
-                                    }else{
-                                        Log.e("TAG", "done123456789: 修改失败")
-                                    }
+                val bmobQuery = BmobQuery<Business>()
+                bmobQuery.getObject(getdata_id, object : QueryListener<Business>(){
+                    override fun done(p0: Business?, p1: BmobException?) {
+                        if (p1 == null){
+                            if (p0 != null){
+                                val business = Business()
+                                if (p0.collection){
+                                    business.collection = false
+//                                    business.phone = getpholos
+                                    binding?.type = false
+                                    Toast.makeText(this@BusinessMainActivity, "取消收藏", Toast.LENGTH_SHORT).show()
+                                }else{
+                                    business.collection = true
+//                                    business.phone = getpholos
+                                    binding?.type = true
+                                    Toast.makeText(this@BusinessMainActivity, "已收藏", Toast.LENGTH_SHORT).show()
                                 }
 
-                            })
+                                business.update(getdata_id, object : UpdateListener(){
+                                    override fun done(e: BmobException?) {
+                                        if (e == null){
+                                            Log.e("TAG", "done123456789: 修改成功")
+                                        }else{
+                                            Log.e("TAG", "done123456789: 修改失败")
+                                        }
+                                    }
 
+                                })
+
+                            }
+                        }else{
+                            Toast.makeText(this@BusinessMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
+                            Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
                         }
-                    }else{
-                        Toast.makeText(this@BusinessMainActivity, "查询失败", Toast.LENGTH_SHORT).show()
-                        Log.e("TAG", "done123456789: ${p1?.message}, ${p1?.errorCode}")
                     }
-                }
 
-            })
+                })
+            }
 
         }
 

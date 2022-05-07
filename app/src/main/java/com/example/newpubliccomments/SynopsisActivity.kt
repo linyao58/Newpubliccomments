@@ -2,20 +2,16 @@ package com.example.newpubliccomments
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.database.DatabaseUtils
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobQuery
@@ -23,14 +19,19 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.SaveListener
+import cn.bmob.v3.listener.UpdateListener
 import com.bumptech.glide.Glide
 import com.example.newpubliccomments.NewMessage.Messages
 import com.example.newpubliccomments.business.Business
+import com.example.newpubliccomments.collection.Collection
 import com.example.newpubliccomments.databinding.ActivitySynopsisBinding
 import com.example.newpubliccomments.location.SearchLocation
 import com.example.newpubliccomments.share.Evaluates
 import com.example.newpubliccomments.signregister.PublicMyUser
 import com.example.newpubliccomments.tool.StatusBar
+import com.umeng.socialize.ShareAction
+import com.umeng.socialize.UMShareListener
+import com.umeng.socialize.bean.SHARE_MEDIA
 import de.hdodenhof.circleimageview.CircleImageView
 import io.rong.imkit.RongIM
 import io.rong.imlib.model.Conversation
@@ -106,7 +107,145 @@ class SynopsisActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        val shareListener = object : UMShareListener{
+            override fun onStart(p0: SHARE_MEDIA?) {
+                Toast.makeText(this@SynopsisActivity, "分享成功",Toast.LENGTH_SHORT).show()
+            }
 
+            override fun onResult(p0: SHARE_MEDIA?) {
+
+            }
+
+            override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+                Toast.makeText(this@SynopsisActivity, "分享失败",Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onCancel(p0: SHARE_MEDIA?) {
+
+            }
+
+        }
+
+        binding?.fenxiang?.setOnClickListener {
+            if (getPhone.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                ShareAction(this).withText("hello").setDisplayList(SHARE_MEDIA.SINA,
+                    SHARE_MEDIA.WEIXIN,
+                    SHARE_MEDIA.WEIXIN_CIRCLE,
+                    SHARE_MEDIA.WEIXIN_FAVORITE,
+                    SHARE_MEDIA.DINGTALK,
+                    SHARE_MEDIA.ALIPAY)
+                    .setCallback(shareListener).open()
+            }
+        }
+
+        if (getPhone.isEmpty()){
+            binding?.colleType = false
+        }else{
+            val collle1 = BmobQuery<Collection>()
+            collle1.addWhereEqualTo("phone", getPhone)
+            val collle2 = BmobQuery<Collection>()
+            collle2.addWhereEqualTo("businessid", getsynoid)
+
+            val arrayList = ArrayList<BmobQuery<Collection>>()
+            arrayList.add(collle1)
+            arrayList.add(collle2)
+
+            val bombQuery = BmobQuery<Collection>()
+            bombQuery.and(arrayList)
+            bombQuery.findObjects(object : FindListener<Collection>(){
+                override fun done(p0: MutableList<Collection>?, p1: BmobException?) {
+                    if (p1 == null){
+                        if (p0 != null){
+                            if (p0[0].collection == "true"){
+                                binding?.colleType = true
+                            }else{
+                                binding?.colleType = false
+                            }
+                        }
+                    }else{
+                        binding?.colleType = false
+                    }
+                }
+
+            })
+        }
+
+        binding?.soucang?.setOnClickListener {
+            if (getPhone.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+
+                val collle1 = BmobQuery<Collection>()
+                collle1.addWhereEqualTo("phone", getPhone)
+                val collle2 = BmobQuery<Collection>()
+                collle2.addWhereEqualTo("businessid", getsynoid)
+
+                val arrayList = ArrayList<BmobQuery<Collection>>()
+                arrayList.add(collle1)
+                arrayList.add(collle2)
+
+                val bombQuery = BmobQuery<Collection>()
+                bombQuery.and(arrayList)
+                bombQuery.findObjects(object : FindListener<Collection>(){
+                    override fun done(p0: MutableList<Collection>?, p1: BmobException?) {
+                        if (p1 == null){
+                            if (p0 == null){
+
+
+                            }else{
+                                val collections =
+                                    Collection()
+                                if (p0[0].collection == "true"){
+                                    collections.collection = "false"
+                                    binding?.colleType = false
+                                    Toast.makeText(this@SynopsisActivity, "取消收藏", Toast.LENGTH_SHORT).show()
+                                }else{
+                                    collections.collection = "true"
+                                    binding?.colleType = true
+                                    Toast.makeText(this@SynopsisActivity, "收藏成功", Toast.LENGTH_SHORT).show()
+                                }
+
+                                collections.update(p0[0].objectId, object : UpdateListener(){
+                                    override fun done(p0: BmobException?) {
+                                        if (p0 == null){
+
+                                        }else{
+
+                                        }
+                                    }
+
+                                })
+
+                            }
+                        }else{
+//                            Toast.makeText(this@SynopsisActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
+                            val collection =
+                                Collection()
+                            collection.businessid = getsynoid
+                            collection.phone = getPhone
+                            collection.collection = "true"
+
+                            collection.save(object : SaveListener<String>(){
+                                override fun done(p0: String?, p1: BmobException?) {
+                                    if (p1 == null){
+                                        Toast.makeText(this@SynopsisActivity, "收藏成功", Toast.LENGTH_SHORT).show()
+                                        binding?.colleType = true
+                                    }else{
+                                        Toast.makeText(this@SynopsisActivity, "收藏失败", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                            })
+                        }
+                    }
+
+                })
+            }
+        }
 
         var businesId = ""
 

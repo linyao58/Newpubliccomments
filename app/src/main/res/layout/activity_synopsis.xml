@@ -12,6 +12,10 @@
             name="number"
             type="String" />
 
+        <variable
+            name="colleType"
+            type="Boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -276,7 +280,7 @@
                 android:id="@+id/soucang"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/soucang"
+                android:src="@{colleType == true ? @drawable/sc1 : @drawable/soucang}"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
