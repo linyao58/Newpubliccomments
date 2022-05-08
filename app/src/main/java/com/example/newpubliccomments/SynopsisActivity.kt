@@ -25,6 +25,8 @@ import com.example.newpubliccomments.NewMessage.Messages
 import com.example.newpubliccomments.business.Business
 import com.example.newpubliccomments.collection.Collection
 import com.example.newpubliccomments.databinding.ActivitySynopsisBinding
+import com.example.newpubliccomments.follow.Follow
+import com.example.newpubliccomments.live.Live
 import com.example.newpubliccomments.location.SearchLocation
 import com.example.newpubliccomments.share.Evaluates
 import com.example.newpubliccomments.signregister.PublicMyUser
@@ -102,6 +104,7 @@ class SynopsisActivity : AppCompatActivity() {
         var getsynoid = bundle?.getString("data_id")
         var getPhone = bundle?.getString("phone").toString()
         var getName = bundle?.getString("name").toString()
+        var getUserId = bundle?.getString("userId").toString()
 
         binding?.DelBacksyno?.setOnClickListener {
             onBackPressed()
@@ -247,6 +250,114 @@ class SynopsisActivity : AppCompatActivity() {
             }
         }
 
+        if (getPhone.isEmpty()){
+            binding?.liveType = false
+        }else{
+            val collle1 = BmobQuery<Live>()
+            collle1.addWhereEqualTo("phone", getPhone)
+            val collle2 = BmobQuery<Live>()
+            collle2.addWhereEqualTo("synopsisid", getsynoid)
+
+            val arrayList = ArrayList<BmobQuery<Live>>()
+            arrayList.add(collle1)
+            arrayList.add(collle2)
+
+            val bombQuery = BmobQuery<Live>()
+            bombQuery.and(arrayList)
+            bombQuery.findObjects(object : FindListener<Live>(){
+                override fun done(p0: MutableList<Live>?, p1: BmobException?) {
+                    if (p1 == null){
+                        if (p0 != null){
+                            if (p0[0].live == "true"){
+                                binding?.liveType = true
+                            }else{
+                                binding?.liveType = false
+                            }
+                        }
+                    }else{
+                        binding?.liveType = false
+                    }
+                }
+
+            })
+        }
+
+        binding?.live?.setOnClickListener {
+
+            if (getPhone.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+
+                val collle1 = BmobQuery<Live>()
+                collle1.addWhereEqualTo("phone", getPhone)
+                val collle2 = BmobQuery<Live>()
+                collle2.addWhereEqualTo("synopsisid", getsynoid)
+
+                val arrayList = ArrayList<BmobQuery<Live>>()
+                arrayList.add(collle1)
+                arrayList.add(collle2)
+
+                val bombQuery = BmobQuery<Live>()
+                bombQuery.and(arrayList)
+                bombQuery.findObjects(object : FindListener<Live>(){
+                    override fun done(p0: MutableList<Live>?, p1: BmobException?) {
+                        if (p1 == null){
+                            if (p0 == null){
+
+
+                            }else{
+                                val collections =
+                                    Live()
+                                if (p0[0].live == "true"){
+                                    collections.live = "false"
+                                    binding?.liveType = false
+                                    Toast.makeText(this@SynopsisActivity, "取消点赞", Toast.LENGTH_SHORT).show()
+                                }else{
+                                    collections.live = "true"
+                                    binding?.liveType = true
+                                    Toast.makeText(this@SynopsisActivity, "点赞成功", Toast.LENGTH_SHORT).show()
+                                }
+
+                                collections.update(p0[0].objectId, object : UpdateListener(){
+                                    override fun done(p0: BmobException?) {
+                                        if (p0 == null){
+
+                                        }else{
+
+                                        }
+                                    }
+
+                                })
+
+                            }
+                        }else{
+//                            Toast.makeText(this@SynopsisActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
+                            val collection =
+                                Live()
+                            collection.synopsisId = getsynoid
+                            collection.phone = getPhone
+                            collection.live = "true"
+
+                            collection.save(object : SaveListener<String>(){
+                                override fun done(p0: String?, p1: BmobException?) {
+                                    if (p1 == null){
+                                        Toast.makeText(this@SynopsisActivity, "点赞成功", Toast.LENGTH_SHORT).show()
+                                        binding?.liveType = true
+                                    }else{
+                                        Toast.makeText(this@SynopsisActivity, "点赞失败", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                            })
+                        }
+                    }
+
+                })
+            }
+
+        }
+
         var businesId = ""
 
         Glide.with(this@SynopsisActivity).load(getpholos).into(binding?.userAvatar!!)
@@ -288,7 +399,119 @@ class SynopsisActivity : AppCompatActivity() {
 
         })
 
+        if (getPhone.isEmpty()){
+            binding?.follow?.text = "关注"
+        }else{
+            val collle1 = BmobQuery<Follow>()
+            collle1.addWhereEqualTo("phone", getPhone)
+            val collle2 = BmobQuery<Follow>()
+            collle2.addWhereEqualTo("synopsisid", getUserId)
 
+            val arrayList = ArrayList<BmobQuery<Follow>>()
+            arrayList.add(collle1)
+            arrayList.add(collle2)
+
+            val bombQuery = BmobQuery<Follow>()
+            bombQuery.and(arrayList)
+            bombQuery.findObjects(object : FindListener<Follow>(){
+                override fun done(p0: MutableList<Follow>?, p1: BmobException?) {
+                    if (p1 == null){
+                        if (p0 != null){
+                            p0.forEach {
+                                if (it.follow == "true"){
+                                    binding?.follow?.text = "已关注"
+                                }else{
+                                    binding?.follow?.text = "关注"
+                                }
+                            }
+                        }
+                    }else{
+                        binding?.follow?.text = "关注"
+                    }
+                }
+
+            })
+        }
+
+        binding?.follow?.setOnClickListener {
+
+            if (getPhone.isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+
+                val collle1 = BmobQuery<Follow>()
+                collle1.addWhereEqualTo("phone", getPhone)
+                val collle2 = BmobQuery<Follow>()
+                collle2.addWhereEqualTo("synopsisid", getUserId)
+
+                val arrayList = ArrayList<BmobQuery<Follow>>()
+                arrayList.add(collle1)
+                arrayList.add(collle2)
+
+                val bombQuery = BmobQuery<Follow>()
+                bombQuery.and(arrayList)
+                bombQuery.findObjects(object : FindListener<Follow>(){
+                    override fun done(p0: MutableList<Follow>?, p1: BmobException?) {
+                        if (p1 == null){
+                            if (p0 == null){
+
+
+                            }else{
+                                val collections =
+                                    Follow()
+                                if (p0[0].follow == "true"){
+                                    collections.follow = "false"
+//                                    binding?.colleType = false
+                                    binding?.follow?.text = "关注"
+                                    Toast.makeText(this@SynopsisActivity, "取消关注", Toast.LENGTH_SHORT).show()
+                                }else{
+                                    collections.follow = "true"
+                                    binding?.follow?.text = "已关注"
+//                                    binding?.colleType = true
+                                    Toast.makeText(this@SynopsisActivity, "关注成功", Toast.LENGTH_SHORT).show()
+                                }
+
+                                collections.update(p0[0].objectId, object : UpdateListener(){
+                                    override fun done(p0: BmobException?) {
+                                        if (p0 == null){
+
+                                        }else{
+
+                                        }
+                                    }
+
+                                })
+
+                            }
+                        }else{
+//                            Toast.makeText(this@SynopsisActivity, "${p1.message}", Toast.LENGTH_SHORT).show()
+                            val collection =
+                                Follow()
+                            collection.synopsisId = getUserId
+                            collection.phone = getPhone
+                            collection.follow = "true"
+
+                            collection.save(object : SaveListener<String>(){
+                                override fun done(p0: String?, p1: BmobException?) {
+                                    if (p1 == null){
+                                        binding?.follow?.text = "已关注"
+                                        Toast.makeText(this@SynopsisActivity, "关注成功", Toast.LENGTH_SHORT).show()
+//                                        binding?.colleType = true
+                                    }else{
+                                        Toast.makeText(this@SynopsisActivity, "关注失败", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                            })
+                        }
+                    }
+
+                })
+
+            }
+
+        }
 
         binding?.recyclerView?.isNestedScrollingEnabled = false
 
@@ -302,6 +525,9 @@ class SynopsisActivity : AppCompatActivity() {
                         Glide.with(this@SynopsisActivity).load(p0.photo).into(binding?.photo!!)
                         binding?.sytext?.text = p0.message
                         userPhone = p0.phone
+                        if (p0.phone == getPhone){
+                            binding?.follow?.visibility = View.GONE
+                        }
                         val busi = BmobQuery<Business>()
                         busi.getObject(p0.businessid, object : QueryListener<Business>(){
                             override fun done(business: Business?, p11: BmobException?) {

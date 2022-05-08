@@ -9,6 +9,7 @@ public class Evaluates extends BmobObject {
     private String avatar;
     private String message;
     private String businessid;
+    private String userId;
 
     public String getPhoto() {
         return photo;
@@ -43,6 +44,13 @@ public class Evaluates extends BmobObject {
     }
     public void setBusinessid(String businessid) {
         this.businessid = businessid;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }

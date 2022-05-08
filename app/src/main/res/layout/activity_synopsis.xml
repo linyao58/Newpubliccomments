@@ -15,6 +15,9 @@
         <variable
             name="colleType"
             type="Boolean" />
+        <variable
+            name="liveType"
+            type="Boolean" />
 
     </data>
 
@@ -65,6 +68,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/user_avatar"/>
 
             <TextView
+                android:id="@+id/follow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="关注"
@@ -268,9 +272,10 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
+                android:id="@+id/live"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/zan"
+                android:src="@{liveType == true ? @drawable/dianzan1 : @drawable/zan}"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -61,7 +61,7 @@ import kotlinx.coroutines.launch
 //import cn.bmob.v3.listener.SaveListener
 
 //      name:评价信息 avatar:头像 aid:当前id spholo：展示的图片
-class Fruits(val name:String, val avatar: String, val aid: String,val spholo: String, val phone: String)
+class Fruits(val name:String, val avatar: String, val aid: String,val spholo: String, val phone: String, val userId: String)
 
 class FruitAdapters(val fruitList : List<Fruits>) :
     RecyclerView.Adapter<FruitAdapters.ViewHolder>(){
@@ -89,6 +89,7 @@ class FruitAdapters(val fruitList : List<Fruits>) :
             bundle.putString("data_id",fruitid)
             bundle.putString("phone", fruit.phone)
             bundle.putString("name", fruit.name)
+            bundle.putString("userId", fruit.userId)
 
             val intent = Intent(parent.context, SynopsisActivity::class.java)
 
@@ -291,6 +292,7 @@ class home(intent: Intent) : Fragment(){
             override fun done(p0: MutableList<Evaluates>?, p1: BmobException?) {
                 if (p1 == null){
                     if (p0 != null){
+
 //                        fruitLists.add(Fruits(p0[0].Messages, p0[0].avatar, p0[0].objectId.toInt(), p0[0].photo))
                         p0.forEach {
                             var message = it.message
@@ -299,7 +301,7 @@ class home(intent: Intent) : Fragment(){
                             var photo = it.photo
 
                             Log.e("TAG", "done123456789: $message, $avatar, $id, $photo")
-                            fruitLists.add(Fruits(message, avatar, id, photo, gopholo))
+                            fruitLists.add(Fruits(message, avatar, id, photo, gopholo, it.userId))
                         }
 
                         val layoutManager = GridLayoutManager(context,2)
@@ -437,6 +439,7 @@ class setting(intent: Intent) : Fragment() {
                                         eva.message = E_synopsis
                                         eva.phone = gopholo
                                         eva.businessid = bid
+                                        eva.userId = it.objectId
                                         eva.save(object : SaveListener<String>(){
                                             override fun done(p0: String?, p1: BmobException?) {
                                                 if (p1 == null){
