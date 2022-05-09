@@ -36,6 +36,8 @@ class RegisterActivity : AppCompatActivity() {
                 val user = PublicMyUser()
                 user.phone = r_pholo
                 user.password = r_pass
+                user.name = "用户${r_pholo}"
+                user.avatar = "https://newpubliccomments-guangzhou.oss-cn-beijing.aliyuncs.com/userAvatar.jpeg"
 
                 user.save(object : SaveListener<String>(){
                     override fun done(p0: String?, p1: BmobException?) {

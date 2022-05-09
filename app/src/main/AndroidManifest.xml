@@ -39,6 +39,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".live.LiveActivity"/>
+
+        <activity android:name=".live.LiveOrFollowActivity"/>
+
         <activity android:name=".complaint.ComplaintActivity"/>
 
         <activity android:name=".collection.CollectionActivity"/>

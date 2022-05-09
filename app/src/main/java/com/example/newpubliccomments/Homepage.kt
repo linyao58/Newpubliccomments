@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
@@ -35,6 +36,8 @@ import com.example.newpubliccomments.business.Business
 import com.example.newpubliccomments.collection.CollectionActivity
 import com.example.newpubliccomments.databinding.ActivitySettingBinding
 import com.example.newpubliccomments.databinding.FragmentHomeBinding
+import com.example.newpubliccomments.live.LiveActivity
+import com.example.newpubliccomments.live.LiveOrFollowActivity
 import com.example.newpubliccomments.location.LocationFragment
 import com.example.newpubliccomments.message.ConverFragment
 import com.example.newpubliccomments.share.Evaluates
@@ -586,6 +589,11 @@ class accont(intent: Intent) : Fragment(){
 
         var collection = view.findViewById<LinearLayout>(R.id.collection)
 
+        var avatar = view.findViewById<ImageView>(R.id.accont_touxiang)
+        var userPage = view.findViewById<TextView>(R.id.geren)
+        var liveOrConlle = view.findViewById<LinearLayout>(R.id.live_and_collection)
+        var follow = view.findViewById<LinearLayout>(R.id.follow)
+
         setting.setOnClickListener {
             val intent = Intent("com.example.newpubliccomment_set.ACTION_START")
             intent.putExtra("setpholo",gopholo)
@@ -623,7 +631,7 @@ class accont(intent: Intent) : Fragment(){
             var zushi : TextView = view.findViewById(R.id.zushi) as TextView
             var geren : TextView = view.findViewById(R.id.geren) as TextView
             var accont_tou : de.hdodenhof.circleimageview.CircleImageView = view.findViewById(R.id.accont_touxiang) as de.hdodenhof.circleimageview.CircleImageView
-            click.text = gopholo
+
             zushi.text = "粉丝|关注"
             geren.text = "个人主页>"
 //            accont_tou.setImageResource(R.drawable.jiutou)
@@ -631,13 +639,21 @@ class accont(intent: Intent) : Fragment(){
 //            获取头像并显示
             val user = BmobQuery<PublicMyUser>()
             user.findObjects(object : FindListener<PublicMyUser>(){
+                @SuppressLint("CommitPrefEdits")
                 override fun done(p0: MutableList<PublicMyUser>?, p1: BmobException?) {
                     if (p1 == null){
 
                         if (p0 != null) {
                             for (user: PublicMyUser in p0){
                                 if (user.phone == gopholo){
+                                    click.text = user.name
                                     Glide.with(this@accont).load(user.avatar).placeholder(R.drawable.jiutou).into(accont_tou)
+                                    val edit = activity?.getSharedPreferences(
+                                        "UserId",
+                                        Context.MODE_PRIVATE
+                                    )?.edit()
+                                    edit?.putString("userId", user.objectId)
+                                    edit?.apply()
                                 }
                             }
                         }
@@ -648,12 +664,36 @@ class accont(intent: Intent) : Fragment(){
 
             })
 
-            os.setOnClickListener {
+            avatar.setOnClickListener {
 //                val intent = Intent("com.example.newpubliccomment_Peplo.ACTION_START")
                 val intent = Intent(requireContext(), PeploActivity::class.java)
                 intent.putExtra("phone", gopholo)
                 startActivity(intent)
             }
+
+            userPage.setOnClickListener {
+                val intent = Intent(requireContext(), PeploActivity::class.java)
+                intent.putExtra("phone", gopholo)
+                startActivity(intent)
+            }
+
+            follow.setOnClickListener {
+
+                if (gopholo == "" || gopholo.isEmpty()){
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    LiveOrFollowActivity().start(it.context, gopholo)
+                }
+
+            }
+
+            liveOrConlle.setOnClickListener {
+
+                LiveActivity().start(it.context, gopholo)
+
+            }
+
         }
 
         customerService.setOnClickListener {

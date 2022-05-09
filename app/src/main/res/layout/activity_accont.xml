@@ -41,7 +41,8 @@
 
 
     <LinearLayout
-        android:layout_width="150dp"
+        android:id="@+id/live_and_collection"
+        android:layout_width="190dp"
         android:layout_height="70dp"
         android:orientation="vertical"
         android:layout_marginLeft="15dp">
@@ -53,7 +54,7 @@
             android:layout_marginTop="5dp"
 
             android:textColor="#FFFFFF"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/zushi"
@@ -71,7 +72,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="10dp"
             android:textSize="14dp"
             android:gravity="center"
             android:textColor="#FFFFFF"/>
@@ -258,6 +259,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/follow"
                 android:layout_width="70dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
@@ -274,7 +276,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="合作招聘"
+                    android:text="关注"
                     android:textColor="#272727"
                     android:textSize="13dp" />
             </LinearLayout>
